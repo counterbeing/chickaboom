@@ -1,9 +1,9 @@
 <template>
   <div class="customer-list">
     <h3>Customers</h3>
-    <ul v-for='customer in customers'>
+    <!-- <ul v-for='customer in customers v-bind='customer.id'>
       <li>{{customer.name}}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
