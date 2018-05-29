@@ -110,7 +110,6 @@
         this.customer.address.city = addressData.locality
         this.customer.address.country = addressData.country
         this.customer.address.address_1 = `${addressData.street_number} ${addressData.route}`
-        // this.customer.address.address_2 = addressData.city
         this.customer.address.latitude = addressData.latitude
         this.customer.address.longitude = addressData.longitude
       },
