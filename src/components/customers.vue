@@ -2,11 +2,13 @@
   <div class="customer-list">
     <h3>Customers</h3>
     <table class="table">
-      <tr>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Phone</td>
-      </tr>
+      <thead class="thead-light">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
       <tr v-for='customer in customers'
         v-bind:key='customer.id'
         class="customer-row"

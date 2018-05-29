@@ -17,7 +17,6 @@
    created() {
      db.collection('customers').get(this.$route.params.id).then(
        snap => {
-         console.log(snap);
       })
    },
    methods: {
