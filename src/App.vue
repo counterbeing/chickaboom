@@ -19,9 +19,7 @@
     </nav>
 
     <div class="container">
-      <div class="py-5 text-center">
         <router-view/>
-      </div>
     </div>
   </div>
 </template>

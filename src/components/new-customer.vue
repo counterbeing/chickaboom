@@ -4,11 +4,11 @@
 
 
     <div class="col-md-12 order-md-1">
-          <h3 class="mb-3">Contact Details</h3>
+          <h3 class="mb-3">New Customer</h3>
           <form class="needs-validation" novalidate>
             <div class="mb-3">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="" value="" required>
+              <input v-model='name' type="text" class="form-control" id="name" placeholder="Jesus H. Christ" value="" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -16,23 +16,31 @@
 
             <div class="mb-3">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <input v-model='email' type="email" class="form-control" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for  shipping updates.
               </div>
             </div>
 
+            <div class="mb-3">
+              <label for="phone">Phone</label>
+              <input v-model='phone' type="tel" class="form-control" id="phone" placeholder="555-555-5555">
+              <div class="invalid-feedback">
+                Please enter a valid email address for  shipping updates.
+              </div>
+            </div>
 
-            <h3 class="mb-3">Billing address</h3>
-            <vue-google-autocomplete
-             v-show='!showAddress'
-            ref="address"
-            id="map"
-            classname="form-control"
-            placeholder="Please type your address"
-            v-on:placechanged="getAddressData"
-            country="us"
-            />
+            <div class="mb-3"  v-show='!showAddress'>
+              <label for="email">Billing Address</label>
+              <vue-google-autocomplete
+              ref="address"
+              id="place-search"
+              classname="form-control"
+              placeholder="Search for billing address"
+              v-on:placechanged="getAddressData"
+              country="us"
+              />
+            </div>
 
             <div v-show='showAddress'>
               <div class="mb-3">
@@ -42,7 +50,7 @@
                   Please enter a billing address.
                 </div>
               </div>
-              
+
               <div class="row">
                 <div class="col-md-4 mb-3">
                   <label for="zip">City</label>
@@ -81,6 +89,9 @@
     name: 'new-customer',
     data() {
       return {
+        phone: null,
+        name: null,
+        email: null,
         address: {
           address_1: null,
           state: null,
@@ -103,7 +114,8 @@
     },
     computed: {
       showAddress() {
-        return this.address.address_1 !== null
+        const a = this.address.address_1
+        return a !== null && a !== ''
       }
     }
   }
