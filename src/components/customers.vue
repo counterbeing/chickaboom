@@ -1,7 +1,8 @@
 <template>
   <div class="customer-list">
+    <router-link :to="{name: 'new-customer'}">New Customer</router-link>
     <h3>Customers</h3>
-    <table class="table">
+    <table class="table table-hover">
       <thead class="thead-light">
         <tr>
           <th>Name</th>
@@ -9,14 +10,16 @@
           <th>Phone</th>
         </tr>
       </thead>
-      <tr v-for='customer in customers'
-        v-bind:key='customer.id'
-        class="customer-row"
-        v-on:dblclick='openCustomer(customer.id)'>
-        <td>{{customer.name}}</td>
-        <td>{{customer.email}}</td>
-        <td>{{customer.phone}}</td>
-      </tr>
+      <tbody>
+        <tr v-for='customer in customers'
+          v-bind:key='customer.id'
+          class="customer-row"
+          v-on:dblclick='openCustomer(customer.id)'>
+          <td>{{customer.name}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.phone}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

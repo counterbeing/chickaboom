@@ -1,7 +1,7 @@
 <template>
   <div class="job-list">
     <h3>Jobs</h3>
-    <table class="table">
+    <table class="table table-hover">
       <thead class="thead-light">
         <tr>
           <th>Date</th>
@@ -11,14 +11,16 @@
           <th>Amount</th>
         </tr>
       </thead>
-      <tr v-for='job in jobs'
-        v-bind:key='job.id'
-        class="job-row"
-        v-on:dblclick='openCustomer(job.id)'>
-        <td>{{job.address}}</td>
-        <td>{{job.state}}</td>
-        <td>{{job.zip}}</td>
-      </tr>
+      <tbody>
+        <tr v-for='job in jobs'
+          v-bind:key='job.id'
+          class="job-row"
+          v-on:dblclick='openCustomer(job.id)'>
+          <td>{{job.address}}</td>
+          <td>{{job.state}}</td>
+          <td>{{job.zip}}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

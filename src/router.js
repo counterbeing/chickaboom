@@ -25,11 +25,15 @@ export default new Router({
       component: Customer
     },
     {
-      path: '/customer/:id/edit',
+      path: '/customer/new',
       name: 'new-customer',
       component: NewCustomer
     },
-
+    // {
+    //   path: '/customer/:id/edit',
+    //   name: 'edit-customer',
+    //   component: EditCustomer
+    // },
     {
       path: '/jobs',
       name: 'jobs',
