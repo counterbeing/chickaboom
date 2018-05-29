@@ -1,6 +1,14 @@
 <template>
   <div class="job-list">
-    <h3>Jobs</h3>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+      <h3>Jobs</h3>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+          <router-link class="btn btn-sm btn-outline-secondary" :to="{name: 'new-job'}">New Job</router-link>
+        </div>
+      </div>
+    </div>
+
     <table class="table table-hover">
       <thead class="thead-light">
         <tr>

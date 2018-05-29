@@ -4,6 +4,7 @@ import Customers from '@/components/customers'
 import Customer from '@/components/customer'
 import NewCustomer from '@/components/new-customer'
 import Jobs from '@/components/jobs'
+import NewJob from '@/components/new-job'
 
 Vue.use(Router)
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/jobs',
       name: 'jobs',
       component: Jobs
+    },
+    {
+      path: '/jobs/new',
+      name: 'new-job',
+      component: NewJob
     }
   ]
 })

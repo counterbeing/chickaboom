@@ -1,8 +1,23 @@
 <template>
   <div class="customer-list">
     <div class="col-md-12 order-md-1">
-          <h3 class="mb-3">New Customer</h3>
+          <h3 class="mb-3">New Job</h3>
           <form class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <v-select :options="['foo','bar']"></v-select>
+                <label for="country">Customer</label>
+
+                <select class="custom-select d-block w-100" id="customer" required="">
+                  <option value="">Choose...</option>
+                  <option>United States</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid country.
+                </div>
+              </div>
+            </div>
+
             <div class="mb-3">
               <label for="name">Name</label>
               <input v-model='customer.name' type="text" class="form-control" id="name" placeholder="Jesus H. Christ" value="" required>

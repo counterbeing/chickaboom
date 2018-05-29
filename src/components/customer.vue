@@ -8,11 +8,29 @@
         </div>
       </div>
     </div>
-    <h4>Contact</h4>
-    <ul>
-      <li>{{customer.phone}}</li>
-      <li><a href="mailto:${customer.email}">{{customer.email}}</a></li>
-    </ul>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Contact</h5>
+            <p class="card-text">email: {{customer.email}}</p>
+            <p class="card-text">phone: {{customer.phone}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Mail</h5>
+            <div class="name">{{customer.name}}</div>
+            <div class="street">{{customer.address.address_1}}</div>
+            <div class="state">{{customer.address.city}},  {{customer.address.state}} {{customer.address.zip}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <hr>
     <p>jobs</p>
