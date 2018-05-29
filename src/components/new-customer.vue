@@ -1,7 +1,7 @@
 <template>
   <div class="customer-list">
-    <!-- <h3>Customers</h3>
-    <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+
+
 
     <div class="col-md-12 order-md-1">
           <h3 class="mb-3">Contact Details</h3>
@@ -22,36 +22,48 @@
               </div>
             </div>
 
+
             <h3 class="mb-3">Billing address</h3>
-            <div class="mb-3">
-              <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
-            </div>
+            <vue-google-autocomplete
+             v-show='!showAddress'
+            ref="address"
+            id="map"
+            classname="form-control"
+            placeholder="Please type your address"
+            v-on:placechanged="getAddressData"
+            country="us"
+            />
 
-            <div class="mb-3">
-              <label for="address2">Address 2</label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <label for="state">State</label>
-                <select class="custom-select d-block w-100" id="state" required>
-                  <option value="">Choose...</option>
-                  <option>California</option>
-                </select>
+            <div v-show='showAddress'>
+              <div class="mb-3">
+                <label for="address">Address</label>
+                <input v-model='address.address_1' type="text" class="form-control" id="address_1" placeholder="1234 Main St" required>
                 <div class="invalid-feedback">
-                  Please provide a valid state.
+                  Please enter a billing address.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
-                <label for="zip">Zip</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required>
-                <div class="invalid-feedback">
-                  Zip code required.
+              
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="zip">City</label>
+                  <input v-model='address.city' type="text" class="form-control" id="city" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+                </div>
+                <div class="col-md-4 mb-1">
+                  <label for="state">State</label>
+                  <input v-model='address.state' type="text" class="form-control" id="state" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Please provide a valid state.
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="zip">Zip</label>
+                  <input v-model='address.zip' type="text" class="form-control" id="zip" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,11 +74,37 @@
 </template>
 
 <script>
- export default {
-   name: 'new-customer',
-   data() {
-     return {
-     }
-   }
- }
+  import VueGoogleAutocomplete from 'vue-google-autocomplete'
+
+  export default {
+    components: { VueGoogleAutocomplete },
+    name: 'new-customer',
+    data() {
+      return {
+        address: {
+          address_1: null,
+          state: null,
+          zip: null,
+          city: null,
+        },
+      }
+    },
+    methods: {
+      getAddressData: function (addressData) {
+        this.address.state = addressData.administrative_area_level_1
+        this.address.zip = addressData.postal_code
+        this.address.city = addressData.locality
+        this.address.country = addressData.country
+        this.address.address_1 = `${addressData.street_number} ${addressData.route}`
+        this.address.address_2 = addressData.city
+        this.address.latitude = addressData.latitude
+        this.address.longitude = addressData.longitude
+      }
+    },
+    computed: {
+      showAddress() {
+        return this.address.address_1 !== null
+      }
+    }
+  }
 </script>
