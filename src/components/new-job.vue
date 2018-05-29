@@ -5,13 +5,8 @@
           <form class="needs-validation" novalidate>
             <div class="row">
               <div class="col-md-12 mb-3">
-                <v-select :options="['foo','bar']"></v-select>
                 <label for="country">Customer</label>
-
-                <select class="custom-select d-block w-100" id="customer" required="">
-                  <option value="">Choose...</option>
-                  <option>United States</option>
-                </select>
+                <v-select :options="customers" id="customer"></v-select>
                 <div class="invalid-feedback">
                   Please select a valid country.
                 </div>
@@ -99,9 +94,19 @@
 
   export default {
     components: { VueGoogleAutocomplete },
-    name: 'new-customer',
+    name: 'new-job',
     data() {
       return {
+        job: {
+          customer_id: null,
+          address: {
+            address_1: null,
+            state: null,
+            zip: null,
+            city: null,
+          },
+        },
+        customers: null,
         customer: {
           phone: null,
           name: null,
