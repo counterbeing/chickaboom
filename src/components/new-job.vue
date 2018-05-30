@@ -60,6 +60,26 @@
             </div>
 
             <hr>
+            <h4>General</h4>
+
+
+
+            <div class="col-md-6 mb-3">
+
+              <div class="custom-control custom-checkbox">
+              <input
+              class="custom-control-input"
+              id="same-address"
+              type="checkbox"
+              v-model="job.permission_to_fly"
+              true-value="yes"
+              false-value="no"
+              >
+              <label class="custom-control-label" for="same-address">Permission to fly?</label>
+            </div>
+            </div>
+
+            <hr>
             <h4>Video</h4>
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -75,6 +95,19 @@
                 <v-select v-model='fps_select' :options="fps_options" id="fps"></v-select>
                 <div class="invalid-feedback">
                   Please select a frame rate.
+                </div>
+              </div>
+
+
+              <div class="col-md-12 mb-3">
+                <label for="format">Notes</label>
+                <textarea
+                class="form-control"
+                v-model="job.videos.notes"
+                placeholder="add multiple lines"
+                />
+                <div class="invalid-feedback">
+                  Please select a customer.
                 </div>
               </div>
             </div>
@@ -109,6 +142,8 @@
           videos: {
             duration: 0,
             format: null,
+            frame_rate: null,
+            notes: null,
           },
           address: {
             address_1: null,
@@ -177,6 +212,9 @@
       customer() {
         this.autofillAddressFromCustomer()
         this.job.customer_id = this.customer.id
+      },
+      fps_select() {
+        this.job.videos.frame_rate = this.fps_select.value
       }
     },
   }
