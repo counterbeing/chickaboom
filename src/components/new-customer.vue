@@ -23,7 +23,7 @@
               <label for="customer.phone">Phone</label>
               <input v-model='customer.phone' type="tel" class="form-control" id="phone" placeholder="555-555-5555">
               <div class="invalid-feedback">
-                Please enter a valid email address for  shipping updates.
+                Need a phone number.
               </div>
             </div>
 
@@ -81,6 +81,7 @@
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import db from './firebase-init'
+  import router from '@/router'
 
   export default {
     components: { VueGoogleAutocomplete },
@@ -111,7 +112,9 @@
         this.customer.address.longitude = addressData.longitude
       },
       submit: function () {
-        db.collection('customers').add(this.customer)
+        db.collection('customers').add(this.customer).then((response) => {
+          router.push({ name: 'customer', params: { id: response.id }})
+        })
       }
     },
     computed: {
