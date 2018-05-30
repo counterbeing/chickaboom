@@ -8,42 +8,18 @@
                 <label for="country">Customer</label>
                 <v-select :options="customers" id="customer"></v-select>
                 <div class="invalid-feedback">
-                  Please select a valid country.
+                  Please select a customer.
                 </div>
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="name">Name</label>
-              <input v-model='customer.name' type="text" class="form-control" id="name" placeholder="Jesus H. Christ" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="email">Email</label>
-              <input v-model='customer.email' type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for  shipping updates.
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="customer.phone">Phone</label>
-              <input v-model='customer.phone' type="tel" class="form-control" id="phone" placeholder="555-555-5555">
-              <div class="invalid-feedback">
-                Please enter a valid email address for  shipping updates.
-              </div>
-            </div>
-
             <div class="mb-3"  v-show='!showAddress'>
-              <label for="customer.email">Billing Address</label>
+              <label for="customer.email">Flight Location</label>
               <vue-google-autocomplete
               ref="address"
               id="place-search"
               classname="form-control"
-              placeholder="Search for billing address"
+              placeholder="Search for an address"
               v-on:placechanged="getAddressData"
               country="us"
               />
@@ -54,7 +30,7 @@
                 <label for="address">Address</label>
                 <input v-model='customer.address.address_1' type="text" class="form-control" id="address_1" placeholder="1234 Main St" required>
                 <div class="invalid-feedback">
-                  Please enter a billing address.
+                  Please enter an address.
                 </div>
               </div>
 
@@ -98,6 +74,15 @@
     data() {
       return {
         job: {
+          permission_to_fly: false,
+          photos: {
+            quantity: 0,
+            aspect_ratio: null,
+          },
+          videos: {
+            duration: 0,
+            format: null,
+          },
           customer_id: null,
           address: {
             address_1: null,
@@ -131,7 +116,7 @@
         this.customer.address.longitude = addressData.longitude
       },
       submit: function () {
-        db.collection('customers').add(this.customer)
+        db.collection('jobs').add(this.job)
       }
     },
     computed: {
