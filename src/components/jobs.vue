@@ -25,7 +25,7 @@
           class="job-row"
           v-on:dblclick='openCustomer(job.id)'>
           <td>{{job.address}}</td>
-          <td>{{job.state}}</td>
+          <td>{{job.customer_id}}</td>
           <td>{{job.zip}}</td>
         </tr>
       </tbody>
@@ -34,29 +34,20 @@
 </template>
 
 <script>
- import db from './firebase-init'
- import router from '@/router'
+  import router from '@/router'
+  import { mapGetters } from 'vuex'
+
 
  export default {
    name: 'jobs',
    data() {
      return {
-       jobs: []
      }
    },
+   computed: {
+     ...mapGetters(['jobs', 'customers']),
+   },
    created() {
-     db.collection('jobs').get().then(
-       snap => {
-        snap.forEach(doc => {
-          const data = {
-            'id': doc.id,
-            'address': doc.data().address,
-            'notes': doc.data().notes,
-            'format': doc.data().format
-          }
-          this.jobs.push(data)
-        })
-      })
    },
    methods: {
      openCustomer(id) {

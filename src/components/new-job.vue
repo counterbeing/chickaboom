@@ -11,18 +11,11 @@
                   Please select a customer.
                 </div>
               </div>
-
-              <div class="col-md-12 mb-3">
-                <label for="format"></label>
-                <v-select :options="formats" id="format"></v-select>
-                <div class="invalid-feedback">
-                  Please select a customer.
-                </div>
-              </div>
             </div>
 
             <div class="mb-3"  v-show='!showAddress'>
               <label for="customer.email">Flight Location</label>
+
               <vue-google-autocomplete
               ref="address"
               id="place-search"
@@ -66,7 +59,27 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" @click='submit'>Save Customer</button>
+
+            <hr>
+            <h4>Video</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="format">Format</label>
+                <v-select v-model='job.videos.format' :options="formats" id="format"></v-select>
+                <div class="invalid-feedback">
+                  Please select a customer.
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="fps">Frames per Second</label>
+                <v-select v-model='job.videos.fps' :options="fps_options" id="fps"></v-select>
+                <div class="invalid-feedback">
+                  Please select a frame rate.
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" @click='submit'>Save Job</button>
       </form>
     </div>
   </div>
@@ -102,18 +115,6 @@
             city: null,
           },
         },
-        // customers: null,
-        customer: {
-          phone: null,
-          name: null,
-          email: null,
-          address: {
-            address_1: null,
-            state: null,
-            zip: null,
-            city: null,
-          },
-        },
       }
     },
     methods: {
@@ -126,14 +127,34 @@
         this.job.address.latitude = addressData.latitude
         this.job.address.longitude = addressData.longitude
       },
+      autofillAddressFromCustomer: function () {
+        this.job.address = this.customer.address
+      },
       submit: function () {
         db.collection('jobs').add(this.job)
       }
     },
+
     computed: {
       ...mapGetters(['customers']),
+      fps_options() {
+        if(!this.job.videos.format) return {}
+        return formats[this.job.videos.format.value].frame_rates.map((r) => {
+          return { label: r.toString(), value: r.toString() }
+        })
+      },
+      customer() {
+        const id = this.job.customer_id
+        if (id === null) return null
+        return this.customers.find(c => c.id == id)
+      },
+
+      // customer() {
+      //   if (this.job.customer_id === null) return null
+      //   const id = this.job.customer_id.value
+      //   return this.customers.find(c => c.id == id)
+      // },
       customer_options() {
-        // console.log(this.customers);
         return this.customers.map((customer) => {
           return { label: customer.name, value: customer.id}
         }).filter((customer) => {
@@ -144,15 +165,22 @@
         return Object.keys(formats).map((format) => {
           const chosen = formats[format]
           return {
-            label: `${format} (${chosen.dimensions.width}x${chosen.dimensions.height}px)`,
+            label: `${format} (${chosen.dimensions.width} x ${chosen.dimensions.height}px)`,
             value: format
           }
         })
       },
       showAddress() {
-        const a = this.job.address.address_1
+        const a = this.job.customer_id
         return a !== null && a !== ''
       }
-    }
+    },
+
+    watch: {
+      customer() {
+        this.autofillAddressFromCustomer()
+        this.job.customer_id = this.customer.id
+      }
+    },
   }
 </script>
