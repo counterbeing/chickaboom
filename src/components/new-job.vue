@@ -5,8 +5,16 @@
           <form class="needs-validation" novalidate>
             <div class="row">
               <div class="col-md-12 mb-3">
-                <label for="country">Customer</label>
-                <v-select :options="customers" id="customer"></v-select>
+                <label for="customer">Customer</label>
+                <v-select v-model='job.customer_id' :options="customers" id="customer"/>
+                <div class="invalid-feedback">
+                  Please select a customer.
+                </div>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label for="format"></label>
+                <v-select :options="formats" id="format"></v-select>
                 <div class="invalid-feedback">
                   Please select a customer.
                 </div>
@@ -28,7 +36,7 @@
             <div v-show='showAddress'>
               <div class="mb-3">
                 <label for="address">Address</label>
-                <input v-model='customer.address.address_1' type="text" class="form-control" id="address_1" placeholder="1234 Main St" required>
+                <input v-model='job.address.address_1' type="text" class="form-control" id="address_1" placeholder="1234 Main St" required>
                 <div class="invalid-feedback">
                   Please enter an address.
                 </div>
@@ -36,22 +44,22 @@
 
               <div class="row">
                 <div class="col-md-4 mb-3">
-                  <label for="zip">City</label>
-                  <input v-model='customer.address.city' type="text" class="form-control" id="city" placeholder="" required>
+                  <label for="city">City</label>
+                  <input v-model='job.address.city' type="text" class="form-control" id="city" placeholder="" required>
                   <div class="invalid-feedback">
                     Zip code required.
                   </div>
                 </div>
                 <div class="col-md-4 mb-1">
                   <label for="state">State</label>
-                  <input v-model='customer.address.state' type="text" class="form-control" id="state" placeholder="" required>
+                  <input v-model='job.address.state' type="text" class="form-control" id="state" placeholder="" required>
                   <div class="invalid-feedback">
                     Please provide a valid state.
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="zip">Zip</label>
-                  <input v-model='customer.address.zip' type="text" class="form-control" id="zip" placeholder="" required>
+                  <input v-model='job.address.zip' type="text" class="form-control" id="zip" placeholder="" required>
                   <div class="invalid-feedback">
                     Zip code required.
                   </div>
@@ -67,6 +75,7 @@
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import db from './firebase-init'
+  import formats from './formats'
 
   export default {
     components: { VueGoogleAutocomplete },
@@ -74,6 +83,7 @@
     data() {
       return {
         job: {
+          customer_id: null,
           permission_to_fly: false,
           photos: {
             quantity: 0,
@@ -83,7 +93,6 @@
             duration: 0,
             format: null,
           },
-          customer_id: null,
           address: {
             address_1: null,
             state: null,
@@ -107,21 +116,30 @@
     },
     methods: {
       getAddressData: function (addressData) {
-        this.customer.address.state = addressData.administrative_area_level_1
-        this.customer.address.zip = addressData.postal_code
-        this.customer.address.city = addressData.locality
-        this.customer.address.country = addressData.country
-        this.customer.address.address_1 = `${addressData.street_number} ${addressData.route}`
-        this.customer.address.latitude = addressData.latitude
-        this.customer.address.longitude = addressData.longitude
+        this.job.address.state = addressData.administrative_area_level_1
+        this.job.address.zip = addressData.postal_code
+        this.job.address.city = addressData.locality
+        this.job.address.country = addressData.country
+        this.job.address.address_1 = `${addressData.street_number} ${addressData.route}`
+        this.job.address.latitude = addressData.latitude
+        this.job.address.longitude = addressData.longitude
       },
       submit: function () {
         db.collection('jobs').add(this.job)
       }
     },
     computed: {
+      formats() {
+          return Object.keys(formats).map((format) => {
+            const chosen = formats[format]
+            return {
+              label: `${format} (${chosen.dimensions.width}x${chosen.dimensions.height}px)`,
+              value: format
+            }
+          })
+      },
       showAddress() {
-        const a = this.customer.address.address_1
+        const a = this.job.address.address_1
         return a !== null && a !== ''
       }
     }

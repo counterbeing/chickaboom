@@ -31,17 +31,18 @@
 
       </div>
     </div>
-
     <hr>
-    <p>jobs</p>
+    <jobs/>
   </div>
 </template>
 
 <script>
- import db from './firebase-init'
+  import Jobs from '@/components/jobs'
+  import db from './firebase-init'
 
  export default {
    name: 'customers',
+   components: { Jobs },
    data() {
      return {
        customer: null
