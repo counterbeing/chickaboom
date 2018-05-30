@@ -6,7 +6,7 @@
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="customer">Customer</label>
-                <v-select v-model='job.customer_id' :options="customer_options" id="customer"/>
+                <v-select v-model='customer_select' :options="customer_options" id="customer"/>
                 <div class="invalid-feedback">
                   Please select a customer.
                 </div>
@@ -15,7 +15,6 @@
 
             <div class="mb-3"  v-show='!showAddress'>
               <label for="customer.email">Flight Location</label>
-
               <vue-google-autocomplete
               ref="address"
               id="place-search"
@@ -65,15 +64,15 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="format">Format</label>
-                <v-select v-model='job.videos.format' :options="formats" id="format"></v-select>
+                <v-select v-model='format_select' :options="formats" id="format"></v-select>
                 <div class="invalid-feedback">
                   Please select a customer.
                 </div>
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="fps">Frames per Second</label>
-                <v-select v-model='job.videos.fps' :options="fps_options" id="fps"></v-select>
+                <label for="fps">Frames Per Second</label>
+                <v-select v-model='fps_select' :options="fps_options" id="fps"></v-select>
                 <div class="invalid-feedback">
                   Please select a frame rate.
                 </div>
@@ -97,6 +96,9 @@
     name: 'new-job',
     data() {
       return {
+        format_select: null,
+        fps_select: null,
+        customer_select: null,
         job: {
           customer_id: null,
           permission_to_fly: false,
@@ -138,22 +140,17 @@
     computed: {
       ...mapGetters(['customers']),
       fps_options() {
-        if(!this.job.videos.format) return {}
-        return formats[this.job.videos.format.value].frame_rates.map((r) => {
+        if(!this.format_select) return []
+        return formats[this.format_select.value].frame_rates.map((r) => {
           return { label: r.toString(), value: r.toString() }
         })
       },
       customer() {
-        const id = this.job.customer_id
+        const id = this.customer_select
         if (id === null) return null
-        return this.customers.find(c => c.id == id)
+        const cust = this.customers.find(c => c.id === id.value)
+        return cust
       },
-
-      // customer() {
-      //   if (this.job.customer_id === null) return null
-      //   const id = this.job.customer_id.value
-      //   return this.customers.find(c => c.id == id)
-      // },
       customer_options() {
         return this.customers.map((customer) => {
           return { label: customer.name, value: customer.id}
