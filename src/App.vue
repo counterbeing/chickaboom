@@ -53,7 +53,10 @@ import router from './router'
 export default {
   name: 'app',
   router,
-  components: {}
+  components: {},
+  created() {
+    this.$store.dispatch('init')
+  }
 }
 </script>
 

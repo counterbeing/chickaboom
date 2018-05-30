@@ -6,7 +6,7 @@
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="customer">Customer</label>
-                <v-select v-model='job.customer_id' :options="customers" id="customer"/>
+                <v-select v-model='job.customer_id' :options="customer_options" id="customer"/>
                 <div class="invalid-feedback">
                   Please select a customer.
                 </div>
@@ -76,6 +76,8 @@
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import db from './firebase-init'
   import formats from './formats'
+  import { mapGetters } from 'vuex'
+
 
   export default {
     components: { VueGoogleAutocomplete },
@@ -100,7 +102,7 @@
             city: null,
           },
         },
-        customers: null,
+        // customers: null,
         customer: {
           phone: null,
           name: null,
@@ -129,14 +131,23 @@
       }
     },
     computed: {
+      ...mapGetters(['customers']),
+      customer_options() {
+        // console.log(this.customers);
+        return this.customers.map((customer) => {
+          return { label: customer.name, value: customer.id}
+        }).filter((customer) => {
+          return customer.label !== null
+        })
+      },
       formats() {
-          return Object.keys(formats).map((format) => {
-            const chosen = formats[format]
-            return {
-              label: `${format} (${chosen.dimensions.width}x${chosen.dimensions.height}px)`,
-              value: format
-            }
-          })
+        return Object.keys(formats).map((format) => {
+          const chosen = formats[format]
+          return {
+            label: `${format} (${chosen.dimensions.width}x${chosen.dimensions.height}px)`,
+            value: format
+          }
+        })
       },
       showAddress() {
         const a = this.job.address.address_1
