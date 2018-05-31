@@ -102,8 +102,8 @@
 
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
-  import db from './firebase-init'
   import NewVideo from './new-video'
+  import router from '@/router'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -162,8 +162,17 @@
         this.job.address = this.customer.address
       },
       submit: function () {
-        db.collection('jobs').add(this.job)
+        this.$store.dispatch('addJob', this.job).then(() => {
+          router.push({ name: 'customer', params: { id: this.job.customer_id }})
+        })
       }
+    },
+
+    created() {
+      const customerId = this.$route.params.customerId
+      if(!customerId) return
+      const option = this.customer_options.find(c => c.value == customerId)
+      this.customer_select = option
     },
 
     computed: {
@@ -171,8 +180,7 @@
       customer() {
         const id = this.customer_select
         if (id === null) return null
-        const cust = this.customers.find(c => c.id === id.value)
-        return cust
+        return this.customers.find(c => c.id === id.value)
       },
       customer_options() {
         return this.customers.map((customer) => {

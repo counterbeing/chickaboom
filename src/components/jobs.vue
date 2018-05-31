@@ -4,7 +4,11 @@
       <h3>Jobs</h3>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-          <router-link class="btn btn-sm btn-outline-secondary" :to="{name: 'new-job'}">New Job</router-link>
+          <router-link
+          class="btn btn-sm btn-outline-secondary"
+          :to="{name: 'new-job', params: { customerId }}">
+          New Job
+          </router-link>
         </div>
       </div>
     </div>
@@ -20,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for='job in jobs'
+        <tr v-for='job in filteredJobs'
           v-bind:key='job.id'
           class="job-row"
           v-on:dblclick='openCustomer(job.id)'>
@@ -40,12 +44,19 @@
 
  export default {
    name: 'jobs',
+   props: ['customerId'],
    data() {
      return {
      }
    },
    computed: {
      ...mapGetters(['jobs', 'customers']),
+     filteredJobs() {
+       if(!this.customerId) return this.jobs
+       return this.jobs.filter((job) => {
+         return job.customer_id === this.customerId
+       })
+     },
    },
    created() {
    },

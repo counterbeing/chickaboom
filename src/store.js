@@ -16,7 +16,10 @@ export default new Vuex.Store({
     jobs: state => state.jobs,
   },
   mutations: {
-    ...firebaseMutations
+    ...firebaseMutations,
+    addJob: function (state, job) {
+      state.jobs.push(job)
+    }
   },
   actions:  {
     bindRef: firebaseAction(({ bindFirebaseRef }, { name, ref }) => {
@@ -25,6 +28,9 @@ export default new Vuex.Store({
     init: firebaseAction(({ bindFirebaseRef }) => {
       bindFirebaseRef('customers', db.collection('customers'))
       bindFirebaseRef('jobs', db.collection('jobs'))
-    })
+    }),
+    addJob: function (context, job) {
+      context.commit('addJob', job)
+    }
   }
 })
