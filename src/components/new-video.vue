@@ -91,11 +91,15 @@
 
     watch: {
       fps_select() {
+        if(this.fps_select === null) return this.video.frame_rate = null
         this.video.frame_rate = this.fps_select.value
+        this.updateParent()
       },
-      // format_select() {
-      //   this.video.format = this.format_select.value
-      // },
+      format_select() {
+        if(this.format_select === null) return this.video.format = null
+        this.video.format = this.format_select.value
+        this.updateParent()
+      },
       video: {
         handler(){
           this.updateParent()
