@@ -62,8 +62,6 @@
             <hr>
             <h4>General</h4>
 
-
-
             <div class="col-md-6 mb-3">
 
               <div class="custom-control custom-checkbox">
@@ -80,37 +78,22 @@
             </div>
 
             <hr>
-            <h4>Video</h4>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="format">Format</label>
-                <v-select v-model='format_select' :options="formats" id="format"></v-select>
-                <div class="invalid-feedback">
-                  Please select a customer.
-                </div>
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="fps">Frames Per Second</label>
-                <v-select v-model='fps_select' :options="fps_options" id="fps"></v-select>
-                <div class="invalid-feedback">
-                  Please select a frame rate.
-                </div>
-              </div>
-
-
-              <div class="col-md-12 mb-3">
-                <label for="format">Notes</label>
-                <textarea
-                class="form-control"
-                v-model="job.videos.notes"
-                placeholder="add multiple lines"
-                />
-                <div class="invalid-feedback">
-                  Please select a customer.
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+              <h2 class="h3">Videos</h2>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                  <button @click='addVideo' class="btn btn-sm btn-outline-secondary">Add Video</button>
                 </div>
               </div>
             </div>
+
+            <new-video
+            v-for='(video, index) in job.videos'
+            :key='`video-${index}`'
+            :value='job.videos[index]'
+            @change='updateVideo(index, ...arguments)'
+            />
+
             <button class="btn btn-primary btn-lg btn-block" @click='submit'>Save Job</button>
       </form>
     </div>
@@ -120,12 +103,11 @@
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import db from './firebase-init'
-  import formats from './formats'
+  import NewVideo from './new-video'
   import { mapGetters } from 'vuex'
 
-
   export default {
-    components: { VueGoogleAutocomplete },
+    components: { VueGoogleAutocomplete, NewVideo },
     name: 'new-job',
     data() {
       return {
@@ -135,16 +117,16 @@
         job: {
           customer_id: null,
           permission_to_fly: false,
-          photos: {
+          photos: [{
             quantity: 0,
             aspect_ratio: null,
-          },
-          videos: {
+          }],
+          videos: [{
             duration: 0,
             format: null,
             frame_rate: null,
             notes: null,
-          },
+          }],
           address: {
             address_1: null,
             state: null,
@@ -155,6 +137,18 @@
       }
     },
     methods: {
+      updateVideo(index, video) {
+        this.job.videos[index] = video
+      },
+      addVideo() {
+        const template = {
+            duration: 0,
+            format: null,
+            frame_rate: null,
+            notes: null,
+          }
+        this.job.videos.push(template)
+      },
       getAddressData: function (addressData) {
         this.job.address.state = addressData.administrative_area_level_1
         this.job.address.zip = addressData.postal_code
@@ -174,12 +168,6 @@
 
     computed: {
       ...mapGetters(['customers']),
-      fps_options() {
-        if(!this.format_select) return []
-        return formats[this.format_select.value].frame_rates.map((r) => {
-          return { label: r.toString(), value: r.toString() }
-        })
-      },
       customer() {
         const id = this.customer_select
         if (id === null) return null
@@ -193,15 +181,6 @@
           return customer.label !== null
         })
       },
-      formats() {
-        return Object.keys(formats).map((format) => {
-          const chosen = formats[format]
-          return {
-            label: `${format} (${chosen.dimensions.width} x ${chosen.dimensions.height}px)`,
-            value: format
-          }
-        })
-      },
       showAddress() {
         const a = this.job.customer_id
         return a !== null && a !== ''
@@ -213,9 +192,6 @@
         this.autofillAddressFromCustomer()
         this.job.customer_id = this.customer.id
       },
-      fps_select() {
-        this.job.videos.frame_rate = this.fps_select.value
-      }
     },
   }
 </script>
