@@ -15,17 +15,20 @@
     </div>
 
     {{job}}
-    {{customer.name}}
+    {{customer}}
+    <google-map :address="job.address"/>
   </div>
 </template>
 
 <script>
   import router from '@/router'
   import { mapGetters } from 'vuex'
+  import GoogleMap from './map'
 
 
  export default {
-   name: 'jobs',
+   name: 'job',
+   components: { GoogleMap },
    props: ['customerId'],
    data() {
      return {
