@@ -1,24 +1,32 @@
 <template>
-  <div class="row">
+  <div class="row" v-if='address'>
 
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Job Location</h5>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h5 class="card-title">Address</h5>
           <div class="street">{{address.address_1}}</div>
           <div class="state">{{address.city}},  {{address.state}} {{address.zip}}</div>
-          <div class="">
-            dist: {{distance}}
-            dur: {{duration}}
+        </li>
+        <li class="list-group-item" v-if='distance'>
+          <h5 class="card-title">Getting There</h5>
+          <div>
+            {{distance.text}}
+            {{duration.text}}
           </div>
-
-        </div>
-      </div>
+        </li>
+        <li class="list-group-item" v-if='distance'>
+          <h5 class="card-title">Travel Expenses</h5>
+          <div>
+            A total of {{duration_price | currency}} for {{duration_hours | currency}}
+            hours, at the rate of {{20 | currency}} per hour.
+          </div>
+        </li>
+      </ul>
     </div>
 
     <div class="col-md-6">
       <div class="google-map" :id="mapName"></div>
-
     </div>
   </div>
 </template>
@@ -31,15 +39,20 @@ export default {
   data: function () {
     return {
       mapName: "google-map",
-      markerCoordinates: [{
-        latitude: this.address.latitude,
-        longitude: this.address.longitude,
-      }],
       map: null,
       directionsService: null,
       directionsDisplay: null,
       distance: null,
       duration: null,
+    }
+  },
+  computed: {
+    duration_price() {
+      return this.duration_hours * 20
+    },
+    duration_hours() {
+      if(!this.duration) return null
+      return this.duration.value/(60*60)
     }
   },
   methods: {
@@ -48,7 +61,7 @@ export default {
       this.directionsDisplay = new google.maps.DirectionsRenderer;
       this.map = new google.maps.Map(document.getElementById('google-map'), {
         zoom: 7,
-        center: {lat: this.address.latitude, lng: this.address.longitude}
+        // center: {lat: this.address.latitude, lng: this.address.longitude}
       });
       this.directionsDisplay.setMap(this.map)
     },

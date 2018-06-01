@@ -20,16 +20,15 @@
     {{job}}
     </pre>
 
-    <pre>
-        {{customer}}
-    </pre>
-
-    <google-map :address="job.address"/>
+    <hr>
+    <h3>Job Location</h3>
+    <google-map :address="job.address" v-if='job'/>
 
     <hr>
     <h3>Videos</h3>
 
-    <div v-for='(video, index) in job.videos'>
+    <div v-for='(video, index) in job.videos' :key='index'>
+      <h2>{{index + 1}}</h2>
       <pre>
       {{video}}
       </pre>
