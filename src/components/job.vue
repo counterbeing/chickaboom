@@ -1,7 +1,9 @@
 
 <template>
   <div class="job-list">
+      <contact-info :customer="customer"/>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+
       <h3>Job</h3>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
@@ -14,13 +16,29 @@
       </div>
     </div>
 
+    <pre>
     {{job}}
-    {{customer}}
+    </pre>
+
+    <pre>
+        {{customer}}
+    </pre>
+
     <google-map :address="job.address"/>
+
+    <hr>
+    <h3>Videos</h3>
+
+    <div v-for='(video, index) in job.videos'>
+      <pre>
+      {{video}}
+      </pre>
+    </div>
   </div>
 </template>
 
 <script>
+  import ContactInfo from  '@/components/contact-info'
   import router from '@/router'
   import { mapGetters } from 'vuex'
   import GoogleMap from './map'
@@ -28,7 +46,7 @@
 
  export default {
    name: 'job',
-   components: { GoogleMap },
+   components: { GoogleMap, ContactInfo },
    props: ['customerId'],
    data() {
      return {
@@ -40,7 +58,7 @@
        return this.jobById(this.$route.params.id)
      },
      customer(){
-       if(this.job.customer_id === null) return null
+       if(!this.job) return null
        const customer = this.customers.find(c => this.job.customer_id === c.id)
        if(!customer) return null
        return customer
