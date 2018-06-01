@@ -2,7 +2,7 @@
 <template>
   <div class="job-list">
       <contact-info :customer="customer"/>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <div v-if='job' class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 
       <h3>Job</h3>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -16,8 +16,14 @@
       </div>
     </div>
 
-    <div class="">
+    <div>
       permission to fly: {{ job.permission_to_fly }}
+    </div>
+
+    <div>
+      Date: 2018-07-16
+      <br>
+      <add-to-cal :job='job' :customer='customer'/>
     </div>
 
     <hr>
@@ -41,11 +47,11 @@
   import router from '@/router'
   import { mapGetters } from 'vuex'
   import GoogleMap from './map'
-
+  import AddToCal from './add-to-cal'
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo },
+   components: { GoogleMap, ContactInfo, AddToCal },
    props: ['customerId'],
    data() {
      return {
@@ -53,6 +59,9 @@
    },
    computed: {
      ...mapGetters(['jobById', 'customers']),
+     location() {
+      return 'Nome, AK'
+     },
      job() {
        return this.jobById(this.$route.params.id)
      },
@@ -63,8 +72,7 @@
        return customer
      }
    },
-   created() {
-   },
+
    methods: {
      openJob(id) {
        router.push({ name: 'job', params: { id }})
