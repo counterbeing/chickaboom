@@ -28,7 +28,7 @@
         <tr v-for='(job, index) in filteredJobs'
           v-bind:key='job.id'
           class="job-row"
-          v-on:dblclick='openCustomer(job.id)'>
+          v-on:dblclick='openJob(job.id)'>
           <td>2018.07.15</td>
           <td>{{customer[index]}}</td>
           <td>{{job.videos.length}}</td>
@@ -73,8 +73,8 @@
    created() {
    },
    methods: {
-     openCustomer(id) {
-       router.push({ name: 'customer', params: { id }})
+     openJob(id) {
+       router.push({ name: 'job', params: { id }})
      }
    }
  }

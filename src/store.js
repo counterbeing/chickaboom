@@ -14,6 +14,9 @@ export default new Vuex.Store({
   getters: {
     customers: state => state.customers,
     jobs: state => state.jobs,
+    jobById: (s, g) => {
+      return id => g.jobs.find(j => j.id === id)
+    }
   },
   mutations: {
     ...firebaseMutations,
