@@ -1,7 +1,7 @@
 <template>
   <div class="row" v-if='address'>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <ul class="list-group">
         <li class="list-group-item">
           <h5 class="card-title">Address</h5>
@@ -18,14 +18,14 @@
         <li class="list-group-item" v-if='distance'>
           <h5 class="card-title">Travel Expenses</h5>
           <div>
-            A total of {{duration_price | currency}} for {{duration_hours | currency}}
+            A total of {{duration_price | currency}} for {{duration_hours | currency('')}}
             hours, at the rate of {{20 | currency}} per hour.
           </div>
         </li>
       </ul>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="google-map" :id="mapName"></div>
     </div>
   </div>

@@ -16,9 +16,9 @@
       </div>
     </div>
 
-    <pre>
-    {{job}}
-    </pre>
+    <div class="">
+      permission to fly: {{ job.permission_to_fly }}
+    </div>
 
     <hr>
     <h3>Job Location</h3>
