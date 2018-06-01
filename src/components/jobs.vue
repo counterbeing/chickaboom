@@ -18,19 +18,23 @@
         <tr>
           <th>Date</th>
           <th>Customer</th>
-          <th>State</th>
-          <th>Duration</th>
+          <th>Videos</th>
+          <th>Photos</th>
+          <th>Hours</th>
           <th>Amount</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for='job in filteredJobs'
+        <tr v-for='(job, index) in filteredJobs'
           v-bind:key='job.id'
           class="job-row"
           v-on:dblclick='openCustomer(job.id)'>
-          <td>{{job.address}}</td>
-          <td>{{job.customer_id}}</td>
-          <td>{{job.zip}}</td>
+          <td>2018.07.15</td>
+          <td>{{customer[index]}}</td>
+          <td>{{job.videos.length}}</td>
+          <td>10</td>
+          <td>6.5 Hours</td>
+          <td>$520.00</td>
         </tr>
       </tbody>
     </table>
@@ -51,6 +55,14 @@
    },
    computed: {
      ...mapGetters(['jobs', 'customers']),
+     customer(){
+       return this.filteredJobs.map((job) => {
+         if(job.customer_id === null) return null
+         const customer = this.customers.find(c => job.customer_id === c.id)
+         if(!customer) return null
+         return customer.name
+       })
+     },
      filteredJobs() {
        if(!this.customerId) return this.jobs
        return this.jobs.filter((job) => {

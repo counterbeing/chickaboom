@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    
+
     <table class="table table-hover">
       <thead class="thead-light">
         <tr>
@@ -32,30 +32,31 @@
 </template>
 
 <script>
- import db from './firebase-init'
  import router from '@/router'
+ import { mapGetters } from 'vuex'
 
  export default {
    name: 'customers',
    data() {
-     return {
-       customers: []
-     }
+     return { }
    },
    created() {
-     db.collection('customers').get().then(
-       snap => {
-        snap.forEach(doc => {
-          const data = {
-            'id': doc.id,
-            'name': doc.data().name,
-            'billing_address': doc.data().billing_address,
-            'phone': doc.data().phone,
-            'email': doc.data().email,
-          }
-          this.customers.push(data)
-        })
-      })
+     // db.collection('customers').get().then(
+     //   snap => {
+     //    snap.forEach(doc => {
+     //      const data = {
+     //        'id': doc.id,
+     //        'name': doc.data().name,
+     //        'billing_address': doc.data().billing_address,
+     //        'phone': doc.data().phone,
+     //        'email': doc.data().email,
+     //      }
+     //      this.customers.push(data)
+     //    })
+     //  })
+   },
+   computed: {
+     ...mapGetters(['customers'])
    },
    methods: {
      openCustomer(id) {

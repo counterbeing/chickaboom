@@ -4,6 +4,7 @@
       <h3>{{customer.name}}</h3>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
+          <a href="#" @click="deleteCustomer(customer.id)" class="btn btn-sm btn-outline-secondary">Delete Customer</a>
           <router-link class="btn btn-sm btn-outline-secondary" :to="{name: 'new-customer'}">Edit Customer</router-link>
         </div>
       </div>
@@ -37,7 +38,7 @@
 
 <script>
  import Jobs from '@/components/jobs'
- import { mapGetters } from 'vuex'
+ import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'customer',
@@ -53,6 +54,7 @@
      }
     },
     methods: {
+      ...mapActions(['deleteCustomer'])
     }
   }
 

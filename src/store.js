@@ -19,6 +19,15 @@ export default new Vuex.Store({
     ...firebaseMutations,
     addJob: function (state, job) {
       state.jobs.push(job)
+    },
+    deleteCustomer: function (state, customerId) {
+      db.collection('customers').doc(customerId).delete()
+      // state.customers = state.customers.filter((c) => {
+      //   return c.id !== customerId
+      // })
+      // state.jobs = state.jobs.filter((j) => {
+      //   return j.customer_id !== customerId
+      // })
     }
   },
   actions:  {
@@ -31,6 +40,10 @@ export default new Vuex.Store({
     }),
     addJob: function (context, job) {
       context.commit('addJob', job)
+    },
+
+    deleteCustomer: function (context, customerId) {
+      context.commit('deleteCustomer', customerId)
     }
   }
 })
