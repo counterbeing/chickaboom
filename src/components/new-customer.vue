@@ -2,7 +2,7 @@
   <div class="customer-list">
     <div class="col-md-12 order-md-1">
           <h3 class="mb-3">New Customer</h3>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" novalidate @submit.prevent="submit">
             <div class="mb-3">
               <label for="name">Name</label>
               <input v-model='customer.name' type="text" class="form-control" id="name" placeholder="Jesus H. Christ" value="" required>
@@ -72,7 +72,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg btn-block" @click='submit'>Save Customer</button>
+            <button class="btn btn-primary btn-lg btn-block">Save Customer</button>
       </form>
     </div>
   </div>

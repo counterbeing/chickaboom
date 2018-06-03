@@ -2,7 +2,7 @@
   <div class="customer-list">
     <div class="col-md-12 order-md-1">
           <h3 class="mb-3">New Job</h3>
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" @submit.prevent="submit" novalidate>
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="customer">Customer</label>
@@ -94,7 +94,7 @@
             @change='updateVideo(index, ...arguments)'
             />
 
-            <button class="btn btn-primary btn-lg btn-block" @click='submit'>Save Job</button>
+            <button class="btn btn-primary btn-lg btn-block">Save Job</button>
       </form>
     </div>
   </div>
