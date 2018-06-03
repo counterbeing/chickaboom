@@ -20,8 +20,9 @@ export default new Vuex.Store({
   },
   mutations: {
     ...firebaseMutations,
-    addJob: function (state, job) {
-      state.jobs.push(job)
+    addJob(state, job) {
+      return db.collection('jobs').add(job)
+      // state.jobs.push(job)
     },
     deleteCustomer: function (state, customerId) {
       db.collection('customers').doc(customerId).delete()
@@ -41,8 +42,8 @@ export default new Vuex.Store({
       bindFirebaseRef('customers', db.collection('customers'))
       bindFirebaseRef('jobs', db.collection('jobs'))
     }),
-    addJob: function (context, job) {
-      context.commit('addJob', job)
+    addJob(context, job) {
+      return context.commit('addJob', job)
     },
 
     deleteCustomer: function (context, customerId) {

@@ -161,7 +161,7 @@
       autofillAddressFromCustomer: function () {
         this.job.address = this.customer.address
       },
-      submit: function () {
+      submit() {
         this.$store.dispatch('addJob', this.job).then(() => {
           router.push({ name: 'customer', params: { id: this.job.customer_id }})
         })
