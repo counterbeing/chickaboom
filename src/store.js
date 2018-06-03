@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import db from './components/firebase-init'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -22,16 +22,11 @@ export default new Vuex.Store({
     ...firebaseMutations,
     addJob(state, job) {
       return db.collection('jobs').add(job)
-      // state.jobs.push(job)
     },
-    deleteCustomer: function (state, customerId) {
-      db.collection('customers').doc(customerId).delete()
-      // state.customers = state.customers.filter((c) => {
-      //   return c.id !== customerId
-      // })
-      // state.jobs = state.jobs.filter((j) => {
-      //   return j.customer_id !== customerId
-      // })
+    deleteCustomer(state, customerId) {
+      db.collection('customers').doc(customerId).delete().then(() => {
+       router.push({ name: 'customers'})
+      })
     }
   },
   actions:  {

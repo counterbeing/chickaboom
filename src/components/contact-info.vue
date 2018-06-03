@@ -35,8 +35,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export  default {
   name: 'contact-info',
-  props: ['customer']
+  props: ['customer'],
+  methods: {
+    ...mapActions(['deleteCustomer'])
+  }
 }
 </script>
