@@ -5,7 +5,7 @@
         <div v-if='warning' class="alert alert-warning" role="alert">Weather may be poor for flying.</div>
         <i class='weather-icon' :class='icon'></i>
         <h6 class="card-subtitle mb-2 text-muted">Projected Forecast for Time of Job</h6>
-        <p class="card-text">{{expectedWeather.main.temp}}°F with {{expectedWeather.weather[0].description}} and winds of about {{expectedWeather.wind.speed}} mph.</p>
+        <p class="card-text">{{expectedWeather.main.temp | round}}°F with {{expectedWeather.weather[0].description}} and winds of about {{expectedWeather.wind.speed | round}}mph.</p>
       </div>
     </div>
   </div>

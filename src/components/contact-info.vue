@@ -61,4 +61,5 @@ export  default {
       text-align: right;
       padding-right: 0.25em;
     }
+    
 </style>

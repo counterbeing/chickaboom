@@ -21,9 +21,10 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body">
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
-            <h5 class="card-title">2018-06-20</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+             <div class="calendar-icon">
+               <font-awesome-icon icon="calendar-alt" />
+             </div>
+            <h6 class="card-subtitle mb-2 text-muted">2018-06-20</h6>
             <add-to-cal :job='job' :customer='customer'/>
           </div>
         </div>
@@ -70,10 +71,11 @@
   import { mapGetters } from 'vuex'
   import GoogleMap from './map'
   import AddToCal from './add-to-cal'
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo, AddToCal, Weather },
+   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon },
    props: ['customerId'],
    data() {
      return {
@@ -100,3 +102,12 @@
    }
  }
 </script>
+
+<style>
+    .calendar-icon {
+      font-size: 3em;
+      text-align: center;
+      display: block;
+      padding: 1.2rem;
+    }
+</style>
