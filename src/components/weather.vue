@@ -42,7 +42,7 @@ export default {
   },
   created() {
     const key = '807d1a295b6e0ffe946cbc9fd373ad15'
-    const host = 'http://api.openweathermap.org/data/2.5/forecast'
+    const host = 'https://api.openweathermap.org/data/2.5/forecast'
     get(`${host}?q=London,uk&lat=${this.job.address.latitude}&lon=${this.job.address.longitude}&appid=${key}&units=imperial`).then((res) => {
       this.forecast = res.data
     })
