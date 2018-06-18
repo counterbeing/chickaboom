@@ -16,6 +16,9 @@
             <h5 class="card-title">Contact</h5>
             <table class='contact-table'>
               <tr>
+                <td>name</td> <td> {{customer.name}}</td>
+              </tr>
+              <tr>
                 <td>email</td> <td> {{customer.email}}</td>
               </tr>
               <tr>

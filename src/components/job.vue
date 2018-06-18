@@ -1,8 +1,8 @@
 
 <template>
-  <div class="job-list">
-      <contact-info :customer="customer"/>
-    <div v-if='job' class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <div  v-if='job' class="job-list">
+    <contact-info :customer="customer"/>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 
       <h3>Job</h3>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -16,14 +16,25 @@
       </div>
     </div>
 
-    <div>
-      permission to fly: {{ job.permission_to_fly }}
-    </div>
+    <div class="row">
 
-    <div>
-      Date: 2018-07-16
-      <br>
-      <add-to-cal :job='job' :customer='customer'/>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> Date: 2018-07-16</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <add-to-cal :job='job' :customer='customer'/>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <weather :location="job.address"/>
+      </div>
+
+      <div class="col-md-3">
+        permission to fly: {{ job.permission_to_fly }}
+      </div>
     </div>
 
     <hr>
@@ -36,13 +47,24 @@
     <div v-for='(video, index) in job.videos' :key='index'>
       <h2>{{index + 1}}</h2>
       <pre>
-      {{video}}
+        {{video}}
+      </pre>
+    </div>
+
+    <hr>
+    <h3>Photos</h3>
+
+    <div v-for='(video, index) in job.videos' :key='index'>
+      <h2>{{index + 1}}</h2>
+      <pre>
+        {{video}}
       </pre>
     </div>
   </div>
 </template>
 
 <script>
+  import Weather from  '@/components/weather'
   import ContactInfo from  '@/components/contact-info'
   import router from '@/router'
   import { mapGetters } from 'vuex'
@@ -51,7 +73,7 @@
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo, AddToCal },
+   components: { GoogleMap, ContactInfo, AddToCal, Weather },
    props: ['customerId'],
    data() {
      return {
@@ -59,9 +81,6 @@
    },
    computed: {
      ...mapGetters(['jobById', 'customers']),
-     location() {
-      return 'Nome, AK'
-     },
      job() {
        return this.jobById(this.$route.params.id)
      },
