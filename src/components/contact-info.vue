@@ -14,8 +14,14 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Contact</h5>
-            <p class="card-text">email: {{customer.email}}</p>
-            <p class="card-text">phone: {{customer.phone}}</p>
+            <table class='contact-table'>
+              <tr>
+                <td>email</td> <td> {{customer.email}}</td>
+              </tr>
+              <tr>
+                <td>phone</td> <td> {{customer.phone}}</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -45,3 +51,9 @@ export  default {
   }
 }
 </script>
+
+<style>
+    .contact-table tr td:first-child {
+      color: #777;
+    }
+</style>
