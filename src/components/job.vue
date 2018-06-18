@@ -78,11 +78,6 @@
    name: 'job',
    components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos },
    props: ['customerId'],
-   data() {
-     return {
-
-     }
-   },
    computed: {
      ...mapGetters(['jobById', 'customers']),
      job() {

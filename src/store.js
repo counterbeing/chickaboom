@@ -29,7 +29,8 @@ export default new Vuex.Store({
       })
     },
     updateTodos(state, job){
-
+      const jobDoc = db.collection('jobs').doc(job.id);
+      return jobDoc.update({ todos: this.job.todos })
     }
   },
   actions:  {
@@ -47,8 +48,8 @@ export default new Vuex.Store({
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)
     },
-    updateTodos: (context, job, ) => {
-
+    updateTodos: (context, job) => {
+      context.commit('updateTodos', job)
     }
   }
 })
