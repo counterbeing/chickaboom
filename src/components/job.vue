@@ -21,15 +21,15 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title"> Date: 2018-07-16</h5>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+            <h5 class="card-title">2018-06-20</h5>
             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
             <add-to-cal :job='job' :customer='customer'/>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <weather :location="job.address"/>
+        <weather :job="job"/>
       </div>
 
       <div class="col-md-3">
@@ -54,12 +54,12 @@
     <hr>
     <h3>Photos</h3>
 
-    <div v-for='(video, index) in job.videos' :key='index'>
+    <!-- <div v-for='(video, index) in job.videos' :key='index'>
       <h2>{{index + 1}}</h2>
       <pre>
         {{video}}
       </pre>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -77,6 +77,7 @@
    props: ['customerId'],
    data() {
      return {
+
      }
    },
    computed: {

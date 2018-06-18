@@ -58,5 +58,7 @@ export  default {
 <style>
     .contact-table tr td:first-child {
       color: #777;
+      text-align: right;
+      padding-right: 0.25em;
     }
 </style>
