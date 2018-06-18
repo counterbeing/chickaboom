@@ -40,21 +40,7 @@
    data() {
      return { }
    },
-   created() {
-     // db.collection('customers').get().then(
-     //   snap => {
-     //    snap.forEach(doc => {
-     //      const data = {
-     //        'id': doc.id,
-     //        'name': doc.data().name,
-     //        'billing_address': doc.data().billing_address,
-     //        'phone': doc.data().phone,
-     //        'email': doc.data().email,
-     //      }
-     //      this.customers.push(data)
-     //    })
-     //  })
-   },
+   created() {},
    computed: {
      ...mapGetters(['customers'])
    },

@@ -33,8 +33,8 @@
         <weather :job="job"/>
       </div>
 
-      <div class="col-md-3">
-        permission to fly: {{ job.permission_to_fly }}
+      <div class="col-md-6">
+        <todos :job='job'/>
       </div>
     </div>
 
@@ -66,6 +66,7 @@
 
 <script>
   import Weather from  '@/components/weather'
+  import Todos from  '@/components/todos'
   import ContactInfo from  '@/components/contact-info'
   import router from '@/router'
   import { mapGetters } from 'vuex'
@@ -75,7 +76,7 @@
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon },
+   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos },
    props: ['customerId'],
    data() {
      return {

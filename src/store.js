@@ -27,6 +27,9 @@ export default new Vuex.Store({
       db.collection('customers').doc(customerId).delete().then(() => {
        router.push({ name: 'customers'})
       })
+    },
+    updateTodos(state, job){
+
     }
   },
   actions:  {
@@ -43,6 +46,9 @@ export default new Vuex.Store({
 
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)
+    },
+    updateTodos: (context, job, ) => {
+
     }
   }
 })

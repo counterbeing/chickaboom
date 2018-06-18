@@ -10,7 +10,9 @@ import Vue2Filters from 'vue2-filters'
 import fontawesome from '@fortawesome/fontawesome'
 // import brands from '@fortawesome/fontawesome-free-brands'
 import faSpinner from '@fortawesome/fontawesome-free-solid/faCalendarAlt'
-fontawesome.library.add(faSpinner)
+import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
+import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
+fontawesome.library.add(faSpinner, faCircle, faCheck)
 
 
 import 'bootstrap/dist/css/bootstrap.css'
