@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <ul>
-      <li class='todo-list' v-for='(todo, index) in job.todos' v-bind:key='index' @click='toggle(todo)'>
+    <div class="card">
+      <div class="card-body">
+
+    <ul class='todo-list' v-if='job.todos'>
+      <li  v-for='(todo, index) in job.todos' v-bind:key='index' @click='toggle(todo)' :class='{ done: isDone(todo) }'>
         <font-awesome-layers class="fa-lg">
           <font-awesome-icon icon="circle" />
-          <font-awesome-icon icon="check" transform="shrink-6" class='todo-icon' :class='{ done: isDone(todo) }' />
+          <font-awesome-icon icon="check" transform="shrink-6" class='todo-icon' />
         </font-awesome-layers>
         {{ todo.title }}
       </li>
     </ul>
   </div>
+</div>
 </template>
 
 <script>
@@ -31,14 +34,16 @@ export default {
     },
     toggle(todo) {
       todo.state = !todo.state
+      this.update()
     },
     update() {
-      this.updateTodos(this.job, this.job.todos)
+      this.updateTodos(this.job)
     }
   },
   created() {
     if(!this.job.todos) {
       this.job.todos = [
+        { title: "Contract sent", state: false},
         { title: "Contract signed", state: false},
         { title: "Flight complete", state: false},
         { title: "Editing complete", state: false},
@@ -46,6 +51,7 @@ export default {
         { title: "Invoice paid", state: false},
       ]
     }
+    this.update()
   }
 }
 </script>

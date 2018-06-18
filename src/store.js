@@ -30,8 +30,7 @@ export default new Vuex.Store({
     },
     updateTodos(state, job){
       const jobDoc = db.collection('jobs').doc(job.id);
-      return jobDoc.update({ todos: this.job.todos })
-    }
+      jobDoc.update({ todos: job.todos })}
   },
   actions:  {
     bindRef: firebaseAction(({ bindFirebaseRef }, { name, ref }) => {
