@@ -57,10 +57,13 @@ export default {
   components: {},
   created() {
     this.$store.dispatch('init')
+  // });
   },
   computed: {
-    ...mapGetters(['user'])
+    ...mapGetters(['user']),
   },
+  methods: {
+  }
 }
 </script>
 

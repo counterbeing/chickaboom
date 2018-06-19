@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from './store'
 import Vue2Filters from 'vue2-filters'
+import { auth } from 'firebase'
 
 // FontAwesome
 import fontawesome from '@fortawesome/fontawesome'
@@ -18,6 +19,9 @@ fontawesome.library.add(faSpinner, faCircle, faCheck)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+// import VueCookies from 'vue-cookies'
+// Vue.use(VueCookies)
+
 Vue.component('v-select', vSelect)
 
 Vue.use(Vue2Filters)
@@ -30,6 +34,15 @@ Vue.filter('round', function(value, decimals) {
   value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)
   return value;
 });
+
+
+auth().onAuthStateChanged(function(user) {
+  if (user) {
+    store.dispatch('setUser', user)
+  } else {
+  }
+})
+
 
 new Vue({
   store,

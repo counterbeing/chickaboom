@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 import db from './components/firebase-init'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import router from '@/router'
-import *  as firebase from 'firebase'
+// import *  as firebase from 'firebase'
+import { auth } from 'firebase'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     jobs: [],
     user: null,
   },
+
   getters: {
     user: s => s.user,
     customers: s => s.customers,
@@ -21,6 +23,7 @@ export default new Vuex.Store({
       return id => g.jobs.find(j => j.id === id)
     }
   },
+
   mutations: {
     ...firebaseMutations,
     setUser(state, payload) {
@@ -38,6 +41,7 @@ export default new Vuex.Store({
       const jobDoc = db.collection('jobs').doc(job.id);
       jobDoc.update({ todos: job.todos })}
   },
+
   actions:  {
     bindRef: firebaseAction(({ bindFirebaseRef }, { name, ref }) => {
       bindFirebaseRef(name, ref)
@@ -57,18 +61,28 @@ export default new Vuex.Store({
       context.commit('updateTodos', job)
     },
     signup: ( { commit }, {email, password}) => {
-      firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      auth().createUserWithEmailAndPassword(email, password).then((user) => {
         commit('setUser', user)
       })
     },
-
+    setUser: ( { commit }, user) => {
+      commit('setUser', user)
+    },
     signin: ( { commit }, {email, password}) => {
-      firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
-        commit('setUser', user)
-        console.log(user);
-      }).catch(function() {
+      auth().setPersistence(auth.Auth.Persistence.LOCAL)
+      .then(function() {
+        auth().signInWithEmailAndPassword(email, password).then((user) => {
+          // console.log(user.user)
+          commit('setUser', user.user)
+          // this.$cookies.set("refreshToken",user.user.refreshToken,"2w")
+        })
       })
+      .catch(function() {
+      });
     },
+    signout: () => {
+      // this.$cookies.set("refreshToken",user.user.refreshToken,"2w")
+    }
 
   }
 })
