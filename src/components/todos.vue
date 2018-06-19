@@ -58,7 +58,7 @@ export default {
 
 <style>
 .done {
-  color: green;
+  color: #15752b;
 }
 
 .todo-list {

@@ -4,7 +4,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Chickaboom</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a v-if='user' class="nav-link" href="#">Sign out</a>
+          <a v-if='user' class="nav-link" @click='doSignout'>Sign out</a>
         </li>
       </ul>
     </nav>
@@ -49,7 +49,7 @@
 
 <script>
 import router from './router'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'app',
@@ -63,6 +63,13 @@ export default {
     ...mapGetters(['user']),
   },
   methods: {
+    ...mapActions(['signout']),
+    doSignout()  {
+      this.signout()
+      .then(() => {
+        this.$router.push('/signin')
+      })
+    }
   }
 }
 </script>

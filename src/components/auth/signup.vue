@@ -1,9 +1,6 @@
 <template>
   <form class="form-signin" @submit.prevent='submit'>
     <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-    <label for="name" class="sr-only">Full Name</label>
-    <input v-model='email' type="email" id="name" class="form-control" placeholder="Full name" required autofocus>
-
     <label for="email" class="sr-only">Email address</label>
     <input v-model='email' type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
 
@@ -11,7 +8,7 @@
     <input v-model='password' type="password" id="password" class="form-control" placeholder="Password" required>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    <p>Have an account?  <router-link :to='{name: "signin"}'>Sign in.</router-link></p>
   </form>
 </template>
 

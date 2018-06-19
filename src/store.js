@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import db from './components/firebase-init'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import router from '@/router'
-// import *  as firebase from 'firebase'
 import { auth } from 'firebase'
 
 Vue.use(Vuex)
@@ -72,16 +71,18 @@ export default new Vuex.Store({
       auth().setPersistence(auth.Auth.Persistence.LOCAL)
       .then(function() {
         auth().signInWithEmailAndPassword(email, password).then((user) => {
-          // console.log(user.user)
           commit('setUser', user.user)
-          // this.$cookies.set("refreshToken",user.user.refreshToken,"2w")
+          router.push({ name: 'jobs'})
         })
       })
       .catch(function() {
       });
     },
     signout: () => {
-      // this.$cookies.set("refreshToken",user.user.refreshToken,"2w")
+      return auth().signOut()
+      .then(() => {
+        router.replace('signin');
+      });
     }
 
   }

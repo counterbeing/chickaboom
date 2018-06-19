@@ -9,7 +9,7 @@
     <input v-model='password' type="password" id="password" class="form-control" placeholder="Password" required>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    <p>No account?  <router-link :to='{name: "signup"}'>Sign up.</router-link></p>
   </form>
 </template>
 
