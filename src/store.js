@@ -3,23 +3,29 @@ import Vuex from 'vuex'
 import db from './components/firebase-init'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import router from '@/router'
+import *  as firebase from 'firebase'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     customers: [],
-    jobs: []
+    jobs: [],
+    user: null,
   },
   getters: {
-    customers: state => state.customers,
-    jobs: state => state.jobs,
+    user: s => s.user,
+    customers: s => s.customers,
+    jobs: s => s.jobs,
     jobById: (s, g) => {
       return id => g.jobs.find(j => j.id === id)
     }
   },
   mutations: {
     ...firebaseMutations,
+    setUser(state, payload) {
+      state.user = payload
+    },
     addJob(state, job) {
       return db.collection('jobs').add(job)
     },
@@ -49,6 +55,20 @@ export default new Vuex.Store({
     },
     updateTodos: (context, job) => {
       context.commit('updateTodos', job)
-    }
+    },
+    signup: ( { commit }, {email, password}) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+        commit('setUser', user)
+      })
+    },
+
+    signin: ( { commit }, {email, password}) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+        commit('setUser', user)
+        console.log(user);
+      }).catch(function() {
+      })
+    },
+
   }
 })

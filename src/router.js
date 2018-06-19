@@ -6,11 +6,24 @@ import NewCustomer from '@/components/new-customer'
 import Jobs from '@/components/jobs'
 import Job from '@/components/job'
 import NewJob from '@/components/new-job'
+import Signin from '@/components/auth/signin'
+import Signup from '@/components/auth/signup'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup
+    },
+
+    {
+      path: '/signin',
+      name: 'signin',
+      component: Signin
+    },
     {
       path: '/',
       name: 'home',
