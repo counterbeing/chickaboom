@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "rm -rf ./docs && vue-cli-service build && mv ./dist ./docs && git checkout HEAD -- docs/CNAME && git add .",
+    "build": "rm -rf ./docs && vue-cli-service build && mv ./dist ./docs && git checkout HEAD -- docs/CNAME && git add . && git commit -m 'build' && git push",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
