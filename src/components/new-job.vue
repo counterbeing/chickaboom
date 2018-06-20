@@ -103,7 +103,7 @@
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import NewVideo from './new-video'
-  import router from '@/router'
+  import router from '@/config/router'
   import { mapGetters } from 'vuex'
 
   export default {

@@ -80,8 +80,8 @@
 
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
-  import db from './firebase-init'
-  import router from '@/router'
+  import db from '@/config/firebase-init'
+  import router from '@/config/router'
 
   export default {
     components: { VueGoogleAutocomplete },

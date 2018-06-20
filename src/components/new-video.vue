@@ -43,7 +43,7 @@
 
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
-  import formats from './formats'
+  import formats from '@/data/formats'
 
   export default {
     components: { VueGoogleAutocomplete },

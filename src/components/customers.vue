@@ -32,7 +32,7 @@
 </template>
 
 <script>
- import router from '@/router'
+ import router from '@/config/router'
  import { mapGetters } from 'vuex'
 
  export default {

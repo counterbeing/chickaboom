@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import db from './components/firebase-init'
+import db from '@/config/firebase-init'
+import router from '@/config/router'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
-import router from '@/router'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-// import { auth } from 'firebase'
 
 Vue.use(Vuex)
 

@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import router from './router'
+import router from '@/config/router'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {

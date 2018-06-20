@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import './router'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import vSelect from 'vue-select'
@@ -7,9 +6,9 @@ import store from './store'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import Vue2Filters from 'vue2-filters'
-import './filters'
+import './config/filters'
 
-import router from '@/router'
+import router from '@/config/router'
 
 // FontAwesome
 import fontawesome from '@fortawesome/fontawesome'
