@@ -50,6 +50,10 @@
     <hr>
 
     <h3>Photos</h3>
+
+    <hr>
+    <h3>Order</h3>
+    <order :job='job'/>
   </div>
 </template>
 
@@ -63,11 +67,13 @@
   import AddToCal from './add-to-cal'
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
   import Videos from '@/components/partials/videos'
+  import Order from '@/components/partials/order'
 
  export default {
    name: 'job',
    components: {
-     GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos, Videos
+     GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon,
+     Todos, Videos, Order
    },
    props: ['customerId'],
    computed: {
