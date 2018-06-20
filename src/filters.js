@@ -9,7 +9,7 @@ Vue.filter('round', function(value, decimals) {
 
 Vue.filter('long_date', function(date) {
   const m = moment(date)
-  return m.format('dddd, MMMM Do')
+  return m.format('dddd, MMMM Do YYYY')
 })
 
 Vue.filter('default_time', function(date) {
