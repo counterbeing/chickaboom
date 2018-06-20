@@ -11,7 +11,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar d-print-none">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -33,17 +33,14 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>              Jobs</router-link>
                   </li>
                 </ul>
-
               </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main role="main" class="col-md-9  col-lg-10 pt-3 px-4 full-width-print">
               <router-view/>
         </main>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -168,4 +165,16 @@ body {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+@media print{
+   /* .noprint{
+       display:none;
+   } */
+   .full-width-print {
+     width: 100% !important;
+     margin-left: 0 !important;
+     padding-left: 0 !important;
+     flex: 0 0 100% !important;
+     max-width: 100% !important;
+   }
+}
 </style>

@@ -2,7 +2,7 @@
   <div class="">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
       <h3>{{customer.name}}</h3>
-      <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
         <div class="btn-group mr-2">
           <a href="#" @click="deleteCustomer(customer.id)" class="btn btn-sm btn-outline-secondary">Delete Customer</a>
           <router-link class="btn btn-sm btn-outline-secondary" :to="{name: 'new-customer'}">Edit Customer</router-link>
@@ -61,5 +61,5 @@ export  default {
       text-align: right;
       padding-right: 0.25em;
     }
-    
+
 </style>

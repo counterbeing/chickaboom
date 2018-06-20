@@ -1,5 +1,5 @@
 <template>
-  <button @click='addToCal' class="btn btn-primary" type="submit">Add to Calendar</button>
+  <button @click='addToCal' class="btn btn-primary d-print-none" type="submit">Add to Calendar</button>
 </template>
 
 <script>
