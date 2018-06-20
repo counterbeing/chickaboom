@@ -8,7 +8,7 @@
 
 <script>
  import Jobs from '@/components/jobs'
- import ContactInfo from  '@/components/contact-info'
+ import ContactInfo from  '@/components/partials/contact-info'
  import { mapGetters, mapActions } from 'vuex'
 
    export default {

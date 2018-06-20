@@ -44,38 +44,29 @@
     <google-map :address="job.address" v-if='job'/>
 
     <hr>
-    <h3>Videos</h3>
 
-    <div v-for='(video, index) in job.videos' :key='index'>
-      <h2>{{index + 1}}. {{video.duration}}min {{video.format}} @{{video.frame_rate}}FPS </h2>
-      <p>{{video.notes}}</p>
-    </div>
+    <videos :videos='job.videos'/>
 
     <hr>
-    <h3>Photos</h3>
 
-    <!-- <div v-for='(video, index) in job.videos' :key='index'>
-      <h2>{{index + 1}}</h2>
-      <pre>
-        {{video}}
-      </pre>
-    </div> -->
+    <h3>Photos</h3>
   </div>
 </template>
 
 <script>
-  import Weather from  '@/components/weather'
-  import Todos from  '@/components/todos'
-  import ContactInfo from  '@/components/contact-info'
+  import Todos from  '@/components/partials/todos'
+  import Weather from  '@/components/partials/weather'
+  import ContactInfo from  '@/components/partials/contact-info'
   import router from '@/router'
   import { mapGetters } from 'vuex'
   import GoogleMap from './map'
   import AddToCal from './add-to-cal'
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import Videos from '@/components/partials/videos'
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos },
+   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos, Videos },
    props: ['customerId'],
    computed: {
      ...mapGetters(['jobById', 'customers']),
