@@ -45,13 +45,16 @@
 
     <hr>
 
-    <videos :videos='job.videos'/>
+    <div v-if='job.videos'>
+      <videos :videos='job.videos'/>
+      <hr>
+    </div>
 
-    <hr>
+    <div v-if='job.photos'>
+      <h3>Photos</h3>
+      <hr>
+    </div>
 
-    <h3>Photos</h3>
-
-    <hr>
     <h3>Order</h3>
     <order :job='job'/>
   </div>
@@ -61,13 +64,14 @@
   import Todos from  '@/components/partials/todos'
   import Weather from  '@/components/partials/weather'
   import ContactInfo from  '@/components/partials/contact-info'
-  // import router from '@/router'
-  import { mapGetters } from 'vuex'
-  import GoogleMap from './map'
-  import AddToCal from './add-to-cal'
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import GoogleMap from '@/components/partials/map'
   import Videos from '@/components/partials/videos'
   import Order from '@/components/partials/order'
+  import AddToCal from '@/components/partials/add-to-cal'
+
+  import { mapGetters } from 'vuex'
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
 
  export default {
    name: 'job',

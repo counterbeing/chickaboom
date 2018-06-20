@@ -1,17 +1,21 @@
 <template>
   <table class="table table-hover">
     <thead class="thead-light">
-      <td>Item</td>
-      <td>Rate</td>
-      <td>Duration</td>
-      <td>Price</td>
+      <tr>
+        <td>Item</td>
+        <td>Rate</td>
+        <td>Duration</td>
+        <td>Price</td>
+      </tr>
     </thead>
-    <tr v-if='videos'>
-      <td>Videos Captured</td>
-      <td>$100.00 / hr</td>
-      <td>{{ video_duration }}</td>
-      <td>{{ video_price | currency}}</td>
-    </tr>
+    <tbody>
+      <tr v-if='videos'>
+        <td>Videos Captured</td>
+        <td>$100.00 / hr</td>
+        <td>{{ video_duration }}</td>
+        <td>{{ video_price | currency }}</td>
+      </tr>
+    </tbody>
   </table>
 </template>
 
