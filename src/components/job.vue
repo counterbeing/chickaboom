@@ -24,7 +24,8 @@
              <div class="calendar-icon">
                <font-awesome-icon icon="calendar-alt" />
              </div>
-            <h6 class="card-subtitle mb-2 text-muted">2018-06-20</h6>
+            <h6 class="card-subtitle mb-2 text-muted">{{ job_time | long_date }}</h6>
+            <p>{{ job_time | default_time }}</p>
             <add-to-cal :job='job' :customer='customer'/>
           </div>
         </div>
@@ -78,6 +79,7 @@
    props: ['customerId'],
    computed: {
      ...mapGetters(['jobById', 'customers']),
+     job_time() { return '2018-06-22 15:00:00' },
      job() {
        return this.jobById(this.$route.params.id)
      },

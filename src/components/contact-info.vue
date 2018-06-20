@@ -22,7 +22,7 @@
                 <td>email</td> <td> {{customer.email}}</td>
               </tr>
               <tr>
-                <td>phone</td> <td> {{customer.phone}}</td>
+                <td>phone</td> <td> <a :href="phone_link"> {{customer.phone}}</a></td>
               </tr>
             </table>
           </div>
@@ -51,6 +51,11 @@ export  default {
   props: ['customer'],
   methods: {
     ...mapActions(['deleteCustomer'])
+  },
+  computed: {
+    phone_link () {
+      return `tel:${this.customer.phone}`
+    }
   }
 }
 </script>
