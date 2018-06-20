@@ -14,9 +14,11 @@ export default new Vuex.Store({
     customers: [],
     jobs: [],
     user: null,
+    requestedRoute: null,
   },
 
   getters: {
+    requestedRoute: s => s.requestedRoute,
     user: s => s.user,
     customers: s => s.customers,
     jobs: s => s.jobs,
@@ -27,20 +29,26 @@ export default new Vuex.Store({
 
   mutations: {
     ...firebaseMutations,
-    setUser(state, payload) {
-      state.user = payload
+    clearRequestedRoute(state) {
+      state.requestedRoute = null
     },
+    setRequestedRoute(state, payload) {
+      state.requestedRoute = payload
+    },
+    setUser(state, payload) { state.user = payload },
+    clearUser(state) { state.user = null },
     addJob(state, job) {
       return db.collection('jobs').add(job)
     },
     deleteCustomer(state, customerId) {
       db.collection('customers').doc(customerId).delete().then(() => {
-       router.push({ name: 'customers'})
+        router.push({ name: 'customers'})
       })
     },
     updateTodos(state, job){
       const jobDoc = db.collection('jobs').doc(job.id);
-      jobDoc.update({ todos: job.todos })}
+      jobDoc.update({ todos: job.todos })
+    }
   },
 
   actions:  {
@@ -66,8 +74,18 @@ export default new Vuex.Store({
         commit('setUser', user)
       })
     },
-    setUser: ( { commit }, user) => {
+    setUser: ( { commit, getters }, user) => {
       commit('setUser', user)
+      const route = getters.requestedRoute
+      if(route) {
+        router.push({ name: route.name, params: route.params})
+      } else {
+        router.push({ name: 'home'})
+      }
+      commit('clearRequestedRoute')
+    },
+    setRequestedRoute( { commit }, payload) {
+      commit('setRequestedRoute', payload)
     },
     signin: ( { commit }, {email, password}) => {
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -80,9 +98,10 @@ export default new Vuex.Store({
       .catch(function() {
       });
     },
-    signout: () => {
+    signout: ({ commit }) => {
       return firebase.auth().signOut()
       .then(() => {
+        commit('clearUser')
         router.replace('signin');
       });
     }

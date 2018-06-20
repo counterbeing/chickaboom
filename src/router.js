@@ -8,7 +8,7 @@ import Job from '@/components/job'
 import NewJob from '@/components/new-job'
 import Signin from '@/components/auth/signin'
 import Signup from '@/components/auth/signup'
-// import store from '@/store'
+import store from '@/store'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -77,7 +77,6 @@ const routes = [
 
 const router = new Router({ routes })
 
-let requested
 router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser;
   const authRequired = to.matched.some((route) => {
@@ -86,14 +85,11 @@ router.beforeEach((to, from, next) => {
   })
 
   if (authRequired && !currentUser) {
-    requested = to
-    console.log(requested)
-    console.log('redirect to signin');
+    // console.log('redirect to signin, and save requested route', to);
+    store.dispatch('setRequestedRoute', to)
     next('/signin')
-  } else if (requested && authRequired && currentUser) {
-    console.log(requested)
-    next(requested.path)
-    requested = null
+  // } else if (store.getters.requestedRoute && authRequired && currentUser) {
+    // next(requested.path)
   } else {
     next()
   }
