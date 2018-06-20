@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import db from './components/firebase-init'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import router from '@/router'
-import { auth } from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+// import { auth } from 'firebase'
 
 Vue.use(Vuex)
 
@@ -60,7 +62,7 @@ export default new Vuex.Store({
       context.commit('updateTodos', job)
     },
     signup: ( { commit }, {email, password}) => {
-      auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
         commit('setUser', user)
       })
     },
@@ -68,9 +70,9 @@ export default new Vuex.Store({
       commit('setUser', user)
     },
     signin: ( { commit }, {email, password}) => {
-      auth().setPersistence(auth.Auth.Persistence.LOCAL)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(function() {
-        auth().signInWithEmailAndPassword(email, password).then((user) => {
+        firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
           commit('setUser', user.user)
           router.push({ name: 'jobs'})
         })
@@ -79,7 +81,7 @@ export default new Vuex.Store({
       });
     },
     signout: () => {
-      return auth().signOut()
+      return firebase.auth().signOut()
       .then(() => {
         router.replace('signin');
       });

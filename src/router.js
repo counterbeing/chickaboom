@@ -8,8 +8,9 @@ import Job from '@/components/job'
 import NewJob from '@/components/new-job'
 import Signin from '@/components/auth/signin'
 import Signup from '@/components/auth/signup'
-import store from '@/store'
-import { auth } from 'firebase'
+// import store from '@/store'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 Vue.use(Router)
 
@@ -76,19 +77,23 @@ const routes = [
 
 const router = new Router({ routes })
 
+let requested
 router.beforeEach((to, from, next) => {
-  const currentUser = auth().currentUser;
+  const currentUser = firebase.auth().currentUser;
   const authRequired = to.matched.some((route) => {
     if(!('authRequired' in route.meta)) return true
     return route.meta.authRequired
   })
-  // console.log(currentUser);
-  // authRequired && !currentUser ? next('/signin') : next()
 
   if (authRequired && !currentUser) {
-    console.log(to)
-    // console.log('redirect to signin');
+    requested = to
+    console.log(requested)
+    console.log('redirect to signin');
     next('/signin')
+  } else if (requested && authRequired && currentUser) {
+    console.log(requested)
+    next(requested.path)
+    requested = null
   } else {
     next()
   }

@@ -5,7 +5,9 @@ import BootstrapVue from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from './store'
 import Vue2Filters from 'vue2-filters'
-import { auth } from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 import router from '@/router'
 
 // FontAwesome
@@ -37,12 +39,10 @@ Vue.filter('round', function(value, decimals) {
 });
 
 
-auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     store.dispatch('setUser', user)
-
   } else {
-    console.log('no user go to sign in')
     router.push({ name: 'signin' })
   }
 })
