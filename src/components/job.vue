@@ -57,7 +57,7 @@
   import Todos from  '@/components/partials/todos'
   import Weather from  '@/components/partials/weather'
   import ContactInfo from  '@/components/partials/contact-info'
-  import router from '@/router'
+  // import router from '@/router'
   import { mapGetters } from 'vuex'
   import GoogleMap from './map'
   import AddToCal from './add-to-cal'
@@ -66,14 +66,15 @@
 
  export default {
    name: 'job',
-   components: { GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos, Videos },
+   components: {
+     GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon, Todos, Videos
+   },
    props: ['customerId'],
    computed: {
      ...mapGetters(['jobById', 'customers']),
      job_time() { return '2018-06-22 15:00:00' },
-     job() {
-       return this.jobById(this.$route.params.id)
-     },
+     duration() { return 3 },
+     job() { return this.jobById(this.$route.params.id) },
      customer(){
        if(!this.job) return null
        const customer = this.customers.find(c => this.job.customer_id === c.id)
@@ -81,12 +82,7 @@
        return customer
      }
    },
-
-   methods: {
-     openJob(id) {
-       router.push({ name: 'job', params: { id }})
-     }
-   }
+   methods: { }
  }
 </script>
 

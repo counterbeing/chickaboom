@@ -17,7 +17,7 @@ export default {
       return '1462 Hampshire St. San Francisco, CA, United States'
     },
     subject() {
-      return 'FLY DRONE'
+      return `Drone Flight for ${this.customer.name}`
     },
     description() {
       return 'just out droning around!'
