@@ -19,7 +19,7 @@
                 <td>name</td> <td> {{customer.name}}</td>
               </tr>
               <tr>
-                <td>email</td> <td> {{customer.email}}</td>
+                <td>email</td> <td> <a :href="'mailto:' + customer.email">{{customer.email}}</a></td>
               </tr>
               <tr>
                 <td>phone</td> <td> <a :href="phone_link"> {{customer.phone}}</a></td>
