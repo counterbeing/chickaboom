@@ -19,7 +19,7 @@
           <h5 class="card-title">Travel Expenses</h5>
           <div>
             A total of {{duration_price | currency}} for {{duration_hours | currency('')}}
-            hours, at the rate of {{20 | currency}} per hour.
+            hours, at the rate of {{settings.company.travel.hourly_rate | currency}} per hour.
           </div>
         </li>
       </ul>
@@ -33,6 +33,7 @@
 
 <script>
 /* global google */
+import Settings from '@/config/default-settings'
 export default {
   name: 'google-map',
   props: ['address'],
@@ -47,13 +48,14 @@ export default {
     }
   },
   computed: {
+    settings() { return Settings },
     duration_price() {
-      return this.duration_hours * 20
+      return this.duration_hours * Settings.company.travel.hourly_rate
     },
     duration_hours() {
       if(!this.duration) return null
       return this.duration.value/(60*60)
-    }
+    },
   },
   methods: {
     initMap() {
@@ -61,7 +63,6 @@ export default {
       this.directionsDisplay = new google.maps.DirectionsRenderer;
       this.map = new google.maps.Map(document.getElementById('google-map'), {
         zoom: 7,
-        // center: {lat: this.address.latitude, lng: this.address.longitude}
       });
       this.directionsDisplay.setMap(this.map)
     },
@@ -89,7 +90,6 @@ export default {
 </script>
 <style scoped>
 .google-map {
-  /* width: 800px; */
   height: 600px;
   margin: 0 auto;
   background: gray;

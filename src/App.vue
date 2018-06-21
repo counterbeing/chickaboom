@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Chickaboom</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{settings.company.name}}</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a v-if='user' class="nav-link" @click='doSignout'>Sign out</a>
@@ -47,6 +47,7 @@
 <script>
 import router from '@/config/router'
 import { mapActions, mapGetters } from 'vuex'
+import Settings from '@/config/default-settings'
 
 export default {
   name: 'app',
@@ -58,6 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters(['user']),
+    settings() { return Settings },
   },
   methods: {
     ...mapActions(['signout']),
