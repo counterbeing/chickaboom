@@ -1,5 +1,4 @@
 ### Todo
-- Add price per mile expense
 - Add photos
 - Add settings page
 - Authorization

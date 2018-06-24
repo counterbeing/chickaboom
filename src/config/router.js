@@ -85,11 +85,8 @@ router.beforeEach((to, from, next) => {
   })
 
   if (authRequired && !currentUser) {
-    // console.log('redirect to signin, and save requested route', to);
     store.dispatch('setRequestedRoute', to)
     next('/signin')
-  // } else if (store.getters.requestedRoute && authRequired && currentUser) {
-    // next(requested.path)
   } else {
     next()
   }

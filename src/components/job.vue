@@ -41,8 +41,7 @@
 
     <hr>
     <h3>Job Location</h3>
-    <google-map :address="job.address" v-if='job'/>
-
+      <google-map :job="job" v-if='job'/>
     <hr>
 
     <div v-if='job.videos'>

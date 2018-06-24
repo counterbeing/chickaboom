@@ -47,6 +47,10 @@ export default new Vuex.Store({
     updateTodos(state, job){
       const jobDoc = db.collection('jobs').doc(job.id);
       jobDoc.update({ todos: job.todos })
+    },
+    updateOrderTotals(state, job){
+      const jobDoc = db.collection('jobs').doc(job.id);
+      return jobDoc.update({ order: job.order })
     }
   },
 
@@ -61,9 +65,13 @@ export default new Vuex.Store({
     addJob(context, job) {
       return context.commit('addJob', job)
     },
-
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)
+    },
+    updateOrderTotals: (context, job) => {
+      // Get current order totals
+      // Determine if we're replacing a single key
+      return context.commit('updateOrderTotals', job)
     },
     updateTodos: (context, job) => {
       context.commit('updateTodos', job)
