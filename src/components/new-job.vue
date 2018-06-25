@@ -82,7 +82,7 @@
               <h2 class="h3">Videos</h2>
               <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
                 <div class="btn-group mr-2">
-                  <button @click='addVideo' class="btn btn-sm btn-outline-secondary">Add Video</button>
+                  <a @click='addVideo' class="btn btn-sm btn-outline-secondary">Add Video</a>
                 </div>
               </div>
             </div>
@@ -94,6 +94,24 @@
             @change='updateVideo(index, ...arguments)'
             />
 
+
+            <hr>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+              <h2 class="h3">Photos</h2>
+              <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
+                <div class="btn-group mr-2">
+                  <a @click='addPhoto' class="btn btn-sm btn-outline-secondary">Add Photo</a>
+                </div>
+              </div>
+            </div>
+
+            <new-photo
+            v-for='(photo, index) in job.photos'
+            :key='`photo-${index}`'
+            :value='job.photos[index]'
+            @change='updatePhoto(index, ...arguments)'
+            />
+
             <button class="btn btn-primary btn-lg btn-block">Save Job</button>
       </form>
     </div>
@@ -103,11 +121,12 @@
 <script>
   import VueGoogleAutocomplete from 'vue-google-autocomplete'
   import NewVideo from './new-video'
+  import NewPhoto from './new-photo'
   import router from '@/config/router'
   import { mapGetters } from 'vuex'
 
   export default {
-    components: { VueGoogleAutocomplete, NewVideo },
+    components: { VueGoogleAutocomplete, NewVideo, NewPhoto },
     name: 'new-job',
     data() {
       return {
@@ -118,8 +137,8 @@
           customer_id: null,
           permission_to_fly: false,
           photos: [{
-            quantity: 0,
             aspect_ratio: null,
+            quantity: 0,
           }],
           videos: [{
             duration: 0,
@@ -139,6 +158,17 @@
     methods: {
       updateVideo(index, video) {
         this.job.videos[index] = video
+      },
+      updatePhoto(index, photo) {
+        this.job.photos[index] = photo
+      },
+      addPhoto() {
+        const template = {
+            aspect_ratio: null,
+            quantity: 0,
+            notes: null,
+          }
+        this.job.photos.push(template)
       },
       addVideo() {
         const template = {

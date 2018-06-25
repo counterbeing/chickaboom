@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h3>Videos</h3>
+    <h3>Photos</h3>
     <hr>
-    <div v-for='(video, index) in videos' :key='index' class='video'>
-      <div class='video-check'>
+    <div v-for='(photo, index) in photos' :key='index' class='photo'>
+      <div class='photo-check'>
         <font-awesome-layers class="fa-lg fa-2x">
           <font-awesome-icon icon="circle" />
           <font-awesome-icon icon="check" transform="shrink-6" class='todo-icon' />
@@ -14,8 +14,8 @@
           <font-awesome-icon icon="circle" />
           <strong class="fa-stack-1x num">{{ index + 1 }}</strong>
         </font-awesome-layers>
-        &nbsp;<strong>{{video.duration}}min {{video.format}} @{{video.frame_rate}}FPS</strong>
-        <p>{{video.notes}}</p>
+        &nbsp;<strong>{{photo.quantity}} {{ photo.quantity | pluralize('photo')}} @ {{photo.aspect_ratio}} of:</strong>
+        <p>{{photo.notes}}</p>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 export default {
   components: { FontAwesomeIcon, FontAwesomeLayers },
-  props: ['videos']
+  props: ['photos']
 }
 </script>
 

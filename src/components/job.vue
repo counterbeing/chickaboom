@@ -1,23 +1,23 @@
 
 <template>
-  <div  v-if='job' class="job-list">
-    <contact-info :customer="customer"/>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <div  v-if='job'>
+    <contact-info :customer="customer" class='sub-section'/>
+    <div class="sub-section">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 
-      <h3>Job</h3>
-      <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
-        <div class="btn-group mr-2">
-          <router-link
-          class="btn btn-sm btn-outline-secondary"
-          :to="{name: 'new-job', params: { customerId }}">
-          New Job
+        <h3>Job</h3>
+        <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
+          <div class="btn-group mr-2">
+            <router-link
+            class="btn btn-sm btn-outline-secondary"
+            :to="{name: 'new-job', params: { customerId }}">
+            New Job
           </router-link>
         </div>
       </div>
     </div>
 
     <div class="row">
-
       <div class="col-md-3">
         <div class="card">
           <div class="card-body">
@@ -38,24 +38,27 @@
         <todos :job='job'/>
       </div>
     </div>
+  </div>
 
-    <hr>
-    <h3>Job Location</h3>
+    <div class="sub-section">
+      <h3>Job Location</h3>
+      <hr>
       <google-map :job="job" v-if='job'/>
-    <hr>
+    </div>
 
-    <div v-if='job.videos'>
+    <div class='sub-section' v-if='job.videos'>
       <videos :videos='job.videos'/>
-      <hr>
     </div>
 
-    <div v-if='job.photos'>
-      <h3>Photos</h3>
-      <hr>
+    <div class='sub-section' v-if='job.photos'>
+      <photos :photos='job.photos'/>
     </div>
 
-    <h3>Order</h3>
-    <order :job='job'/>
+    <div class="sub-section">
+      <h3>Order</h3>
+      <order :job='job'/>
+    </div>
+
   </div>
 </template>
 
@@ -65,6 +68,7 @@
   import ContactInfo from  '@/components/partials/contact-info'
   import GoogleMap from '@/components/partials/map'
   import Videos from '@/components/partials/videos'
+  import Photos from '@/components/partials/photos'
   import Order from '@/components/partials/order'
   import AddToCal from '@/components/partials/add-to-cal'
 
@@ -76,7 +80,7 @@
    name: 'job',
    components: {
      GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon,
-     Todos, Videos, Order
+     Todos, Videos, Order, Photos
    },
    props: ['customerId'],
    computed: {
@@ -96,10 +100,14 @@
 </script>
 
 <style>
-    .calendar-icon {
-      font-size: 3em;
-      text-align: center;
-      display: block;
-      padding: 1.2rem;
-    }
+.sub-section{
+  /* border: 1px solid red; */
+  padding-top: 1em;
+}
+.calendar-icon {
+  font-size: 3em;
+  text-align: center;
+  display: block;
+  padding: 1.2rem;
+}
 </style>

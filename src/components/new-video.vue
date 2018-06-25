@@ -67,9 +67,6 @@
       updateParent(){
         this.$emit("change", this.video)
       },
-      // _.debounce(function (e) {
-      //   this.filterKey = e.target.value;
-      // }, 500)
     },
     computed: {
       fps_options() {
