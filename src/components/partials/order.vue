@@ -80,7 +80,7 @@ export default {
       return this.job.photos.reduce((acc, el) => acc + parseFloat(el.quantity), 0)
     },
     photo_price() {
-      return (this.video_duration / 60) * this.settings.company.flight.hourly_rate
+      return this.photo_quantity * this.photo_rate
     },
     order() {
       return this.job.order || null

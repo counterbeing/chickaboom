@@ -46,12 +46,14 @@
       <google-map :job="job" v-if='job'/>
     </div>
 
-    <div class='sub-section' v-if='job.videos'>
-      <videos :videos='job.videos'/>
-    </div>
+    <div class="row">
+      <div class='sub-section col-lg-6' v-if='job.videos'>
+        <videos :videos='job.videos'/>
+      </div>
 
-    <div class='sub-section' v-if='job.photos'>
-      <photos :photos='job.photos'/>
+      <div class='sub-section col-lg-6' v-if='job.photos'>
+        <photos :photos='job.photos'/>
+      </div>
     </div>
 
     <div class="sub-section">

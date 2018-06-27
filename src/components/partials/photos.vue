@@ -9,12 +9,12 @@
           <font-awesome-icon icon="check" transform="shrink-6" class='todo-icon' />
         </font-awesome-layers>
       </div>
-      <div>
+      <div class='todo-body'>
         <font-awesome-layers class="fa-lg vertical-middle">
           <font-awesome-icon icon="circle" />
           <strong class="fa-stack-1x num">{{ index + 1 }}</strong>
         </font-awesome-layers>
-        &nbsp;<strong>{{photo.quantity}} {{ photo.quantity | pluralize('photo')}} @ {{photo.aspect_ratio}} of:</strong>
+        &nbsp;<strong>{{photo.quantity}} {{ photo.quantity | pluralize('photo')}} @ {{photo.aspect_ratio}}</strong>
         <p>{{photo.notes}}</p>
       </div>
     </div>
@@ -31,12 +31,19 @@ export default {
 
 <style>
 
-.video div {
+.photo div {
   /* border: 1px solid red; */
-  display: inline-block;
+  /* display: inline-block; */
 }
-.video-check {
+.photo-check {
   padding: 1em;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.todo-body {
+  display: table-cell;
+  vertical-align: middle;
 }
 .num{
   color: white;
