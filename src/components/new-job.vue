@@ -60,24 +60,6 @@
             </div>
 
             <hr>
-            <h4>General</h4>
-
-            <div class="col-md-6 mb-3">
-
-              <div class="custom-control custom-checkbox">
-              <input
-              class="custom-control-input"
-              id="same-address"
-              type="checkbox"
-              v-model="job.permission_to_fly"
-              true-value="yes"
-              false-value="no"
-              >
-              <label class="custom-control-label" for="same-address">Permission to fly?</label>
-            </div>
-            </div>
-
-            <hr>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
               <h2 class="h3">Videos</h2>
               <div class="btn-toolbar mb-2 mb-md-0 d-print-none">
@@ -134,8 +116,8 @@
         fps_select: null,
         customer_select: null,
         job: {
+          date: null,
           customer_id: null,
-          permission_to_fly: false,
           photos: [{
             aspect_ratio: null,
             quantity: 0,
