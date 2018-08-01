@@ -59,6 +59,23 @@
               </div>
             </div>
 
+
+            <div class="col-md-12 mb-3">
+              <label for="date">Date</label>
+              <datetime
+                type="datetime"
+                v-model="job.date"
+                input-class="form-control"
+                zone="Asia/Shanghai"
+                :format="{ year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }"
+                :phrases="{ok: 'Continue', cancel: 'Exit'}"
+                :hour-step="1"
+                :minute-step="5"
+                use12-hour
+                ></datetime>
+            </div>
+
+
             <hr>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
               <h2 class="h3">Videos</h2>

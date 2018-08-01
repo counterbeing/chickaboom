@@ -19,6 +19,10 @@ import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 fontawesome.library.add(faSpinner, faCircle, faCheck)
 
 
+import Datetime from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+Vue.use(Datetime)
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
