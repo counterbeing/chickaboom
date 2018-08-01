@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "chickadee-41af5"
+    "default": "chickadee-41af5",
+    "production": "chickaboom-production"
   }
 }
