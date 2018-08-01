@@ -64,8 +64,12 @@
        })
      },
      filteredJobs() {
-       if(!this.customerId) return this.jobs
-       return this.jobs.filter((job) => {
+       const jobsWithCustomer = this.jobs.filter((job) => {
+         return this.customers.find(c => job.customer_id === c.id)
+       })
+       // Show only jobs for a partiuclar customer if needed
+       if(!this.customerId) return jobsWithCustomer
+       return jobsWithCustomer.filter((job) => {
          return job.customer_id === this.customerId
        })
      },
