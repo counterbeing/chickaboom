@@ -44,7 +44,7 @@ export default {
         this.description,
         this.location,
         this.formatDateForIcs(this.start_time),
-        this.formatDateForIcs(this.start_time),
+        this.formatDateForIcs(this.end_time),
       )
       cal.download('Drone Job.ics');
     },
