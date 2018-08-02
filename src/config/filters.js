@@ -12,6 +12,11 @@ Vue.filter('long_date', function(date) {
   return m.format('dddd, MMMM Do YYYY')
 })
 
+Vue.filter('short_datetime', function(date) {
+  const m = moment(date)
+  return m.format('LLL')
+})
+
 Vue.filter('default_time', function(date) {
   const m = moment(date)
   return m.format('LT')

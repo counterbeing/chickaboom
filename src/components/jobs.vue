@@ -29,7 +29,7 @@
           v-bind:key='job.id'
           class="job-row"
           v-on:dblclick='openJob(job.id)'>
-          <td>2018.07.15</td>
+          <td>{{job.date.toDate() | short_datetime}}</td>
           <td>{{customer[index]}}</td>
           <td>{{job.videos.length}}</td>
           <td>10</td>

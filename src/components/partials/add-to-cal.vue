@@ -16,7 +16,6 @@ export default {
   computed: {
     location() {
       const a = this.job.address
-      console.log(a);
       return `${a.address_1}, ${a.city}, ${a.state}, ${a.zip}`
     },
     subject() {
