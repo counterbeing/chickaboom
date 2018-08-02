@@ -87,7 +87,7 @@
    props: ['customerId'],
    computed: {
      ...mapGetters(['jobById', 'customers']),
-     job_time() { return '2018-06-22 15:00:00' },
+     job_time() { return this.job.date.toDate() },
      duration() { return 3 },
      job() { return this.jobById(this.$route.params.id) },
      customer(){
