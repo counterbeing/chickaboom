@@ -64,7 +64,7 @@
               <label for="date">Date</label>
               <datetime
                 type="datetime"
-                v-model="job.date"
+                v-model="selectedDate"
                 input-class="form-control"
                 zone="Asia/Shanghai"
                 :format="{ year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }"
@@ -129,6 +129,7 @@
     name: 'new-job',
     data() {
       return {
+        selectedDate: null,
         format_select: null,
         fps_select: null,
         customer_select: null,
@@ -228,6 +229,10 @@
       customer() {
         this.autofillAddressFromCustomer()
         this.job.customer_id = this.customer.id
+      },
+
+      selectedDate() {
+        this.job.date = new Date(this.selectedDate)
       },
     },
   }
