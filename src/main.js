@@ -16,7 +16,12 @@ import fontawesome from '@fortawesome/fontawesome'
 import faSpinner from '@fortawesome/fontawesome-free-solid/faCalendarAlt'
 import faCircle from '@fortawesome/fontawesome-free-solid/faCircle'
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
-fontawesome.library.add(faSpinner, faCircle, faCheck)
+import faBriefcase from '@fortawesome/fontawesome-free-solid/faBriefcase'
+import faUsers from '@fortawesome/fontawesome-free-solid/faUsers'
+import faMoneyBill from '@fortawesome/fontawesome-free-solid/faMoneyBill'
+fontawesome.library.add(
+  faSpinner, faCircle, faCheck, faBriefcase, faUsers, faMoneyBill
+)
 
 
 import Datetime from 'vue-datetime'
