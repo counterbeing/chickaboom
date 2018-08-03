@@ -31,34 +31,42 @@
                   <router-link class="nav-link" :to="{ name: 'jobs'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>Jobs</router-link>
                   </li>
-                  <li class="nav-item">
+
+                  <div class="contextual-nav" v-if='jobId'>
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                       <span>Contextual</span>
                       <a class="d-flex align-items-center text-muted" href="#">
                         <span data-feather="plus-circle"></span>
                       </a>
                     </h6>
-
-                    <router-link class="nav-link" :to="{ name: 'customers'}">
-                      <font-awesome-icon icon="calendar-alt" class='feather'/>
-                      Details
-                    </router-link>
+                    <li class="nav-item">
+                      <router-link class="nav-link" :to="{ name: 'customers'}">
+                        <font-awesome-icon icon="calendar-alt" class='feather'/>
+                        Details
+                      </router-link>
                     </li>
 
                     <li class="nav-item">
-                      <router-link class="nav-link" :to="{ name: 'jobs'}">
+                      <router-link class="nav-link" :to="{ name: 'job-work', params: jobId}">
                         <font-awesome-icon icon="briefcase" class='feather'/>
                         Work
                       </router-link>
                     </li>
 
                     <li class="nav-item">
-                      <router-link class="nav-link" :to="{ name: 'jobs'}">
+                      <router-link class="nav-link" :to="{ name: 'job-billing', params: jobId }">
                         <font-awesome-icon icon="money-bill" class='feather'/>
                         Billing
                       </router-link>
                     </li>
 
+                    <li class="nav-item">
+                      <router-link class="nav-link" :to="{ name: 'job-files', params: jobId }">
+                        <font-awesome-icon icon="file-archive" class='feather'/>
+                        Files
+                      </router-link>
+                    </li>
+                  </div>
                 </ul>
               </div>
             </nav>
@@ -80,14 +88,16 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 export default {
   name: 'app',
   router,
-  components: {FontAwesomeIcon},
-  created() {
-    this.$store.dispatch('init')
-  // });
-  },
+  components: { FontAwesomeIcon },
+  created() { this.$store.dispatch('init') },
   computed: {
     ...mapGetters(['user']),
     settings() { return Settings },
+    jobId() {
+      const id = this.$route.params.id
+      if(!id) { return false}
+      return { id }
+    }
   },
   methods: {
     ...mapActions(['signout']),

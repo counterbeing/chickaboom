@@ -19,8 +19,10 @@ import faCheck from '@fortawesome/fontawesome-free-solid/faCheck'
 import faBriefcase from '@fortawesome/fontawesome-free-solid/faBriefcase'
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers'
 import faMoneyBill from '@fortawesome/fontawesome-free-solid/faMoneyBill'
+import faFileArchive from '@fortawesome/fontawesome-free-solid/faFileArchive'
+
 fontawesome.library.add(
-  faSpinner, faCircle, faCheck, faBriefcase, faUsers, faMoneyBill
+  faSpinner, faCircle, faCheck, faBriefcase, faUsers, faMoneyBill, faFileArchive
 )
 
 

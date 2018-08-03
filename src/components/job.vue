@@ -77,28 +77,27 @@
   import { mapGetters } from 'vuex'
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-
- export default {
-   name: 'job',
-   components: {
-     GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon,
-     Todos, Videos, Order, Photos
-   },
-   props: ['customerId'],
-   computed: {
-     ...mapGetters(['jobById', 'customers']),
-     job_time() { return this.job.date.toDate() },
-     duration() { return 3 },
-     job() { return this.jobById(this.$route.params.id) },
-     customer(){
-       if(!this.job) return null
-       const customer = this.customers.find(c => this.job.customer_id === c.id)
-       if(!customer) return null
-       return customer
-     }
-   },
-   methods: { }
- }
+  export default {
+    name: 'job',
+    components: {
+      GoogleMap, ContactInfo, AddToCal, Weather, FontAwesomeIcon,
+      Todos, Videos, Order, Photos
+    },
+    props: ['customerId'],
+    computed: {
+      ...mapGetters(['jobById', 'customers']),
+      job_time() { return this.job.date.toDate() },
+      duration() { return 3 },
+      job() { return this.jobById(this.$route.params.id) },
+      customer(){
+        if(!this.job) return null
+        const customer = this.customers.find(c => this.job.customer_id === c.id)
+        if(!customer) return null
+        return customer
+      }
+    },
+    methods: { }
+  }
 </script>
 
 <style>

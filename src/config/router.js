@@ -1,25 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Customers from '@/components/customers'
-import Customer from '@/components/customer'
-import NewCustomer from '@/components/new-customer'
-import Jobs from '@/components/jobs'
-import Job from '@/components/job'
-import NewJob from '@/components/new-job'
-import Signin from '@/components/auth/signin'
-import Signup from '@/components/auth/signup'
 import store from '@/store'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
 Vue.use(Router)
 
-// router
 const routes = [
   {
     path: '/signup',
     name: 'signup',
-    component: Signup,
+    component: load('auth/signup'),
     meta: {
       authRequired: false
     }
@@ -28,7 +20,7 @@ const routes = [
   {
     path: '/signin',
     name: 'signin',
-    component: Signin,
+    component: load('auth/signin'),
     meta: {
       authRequired: false
     }
@@ -46,34 +38,50 @@ const routes = [
   {
     path: '/customer/:id',
     name: 'customer',
-    component: Customer
+    component: load('customer')
   },
   {
     path: '/customer/new',
     name: 'new-customer',
-    component: NewCustomer
+    component: load('new-customer')
   },
-  // {
-  //   path: '/customer/:id/edit',
-  //   name: 'edit-customer',
-  //   component: EditCustomer
-  // },
   {
     path: '/jobs',
     name: 'jobs',
-    component: Jobs
+    component: load('jobs')
   },
   {
     path: '/job/:id',
     name: 'job',
-    component: Job
+    component: load('job')
   },
   {
     path: '/jobs/new',
     name: 'new-job',
-    component: NewJob
+    component: load('new-job')
+  },
+  {
+    path: '/jobs/:id/billing',
+    name: 'job-billing',
+    component: load('jobs/billing')
+  },
+  {
+    path: '/jobs/:id/work',
+    name: 'job-work',
+    component: load('jobs/work')
+  },
+  {
+    path: '/jobs/:id/files',
+    name: 'job-files',
+    component: load('jobs/files')
   }
 ]
+
+function load(path) {
+  return function(resolve) {
+    require(['@/components/' + path + '.vue'], resolve);
+  }
+}
 
 const router = new Router({ routes })
 
