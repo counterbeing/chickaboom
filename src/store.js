@@ -36,6 +36,13 @@ export default new Vuex.Store({
     },
     setUser(state, payload) { state.user = payload },
     clearUser(state) { state.user = null },
+    addDeliveredFile(state, { job, file }) {
+      const jobDoc = db.collection('jobs').doc(job.id);
+      let deliveredFiles = Array.isArray(job.deliveredFiles) ? job.deliveredFiles : []
+      deliveredFiles.push(file)
+      console.log(deliveredFiles);
+      jobDoc.update({ deliveredFiles })
+    },
     addJob(state, job) {
       return db.collection('jobs').add(job)
     },
@@ -64,6 +71,12 @@ export default new Vuex.Store({
     }),
     addJob(context, job) {
       return context.commit('addJob', job)
+    },
+
+    addDeliveredFile(context, { job, file }) {
+      let { fullPath, md5Hash, name, size, updated } = file
+      file = { fullPath, md5Hash, name, size, updated }
+      return context.commit('addDeliveredFile', {job, file})
     },
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)

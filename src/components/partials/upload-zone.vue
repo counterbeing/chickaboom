@@ -6,17 +6,19 @@
 <script>
   import firebase from 'firebase/app'
   import 'firebase/storage'
+  import { mapActions } from 'vuex'
 
   export default {
     data() {
       return {
-        files: [],
+        files: null,
         uploadTask: null,
         storageRef: null,
       }
     },
-    props: [ 'parentFolder' ],
+    props: [ 'type', 'subject' ],
     methods: {
+      ...mapActions(['addDeliveredFile']),
       highlight() {
         this.$refs.dropzone.classList.add('highlighted')
       },
@@ -24,23 +26,47 @@
         this.$refs.dropzone.classList.remove('highlighted')
       },
       upload(file) {
-        console.log('trying to upload ')
-        console.log(file);
-        const path = this.parentFolder.split('/')
+        const path = this.uploadFolder.split('/')
         path.push(file.name)
         const fullPath = path.join('/')
-        this.uploadTask = this.storageRef.child(fullPath).put(file);
+        this.uploadTask = this.storageRef.child(fullPath).put(file)
+        this.uploadTask.then((snapshot) => {
+          this.addDeliveredFile({job: this.subject, file: snapshot.metadata })
+        })
+        this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function(snapshot) {
+          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          // eslint-disable-next-line no-console
+          console.log('Upload is ' + progress + '% done')
+        }, function(error) {
+          // eslint-disable-next-line no-console
+          console.log(error)
+          switch (error.code) {
+            case 'storage/unauthorized':
+            break;
+            case 'storage/canceled':
+            break;
+            case 'storage/unknown':
+            break;
+          }
+        }, function() {})
       },
       handleDrop(e) {
-        console.log('DROPPPED');
-        // console.log(e);
         let dt = e.dataTransfer
-        this.files = dt.files
-        this.handleFiles()
+        this.handleFiles(dt.files)
       },
-      handleFiles() {
-        ([...this.files]).forEach(this.upload)
+      handleFiles(files) {
+        ([...files]).forEach(this.upload)
       },
+    },
+    computed: {
+      uploadFolder() {
+        switch(this.type) {
+          case 'deliveredFile':
+            return `jobs/${this.subject.id}/delivered`
+          case 'sourceFile':
+            return `jobs/${this.subject.id}/source`
+        }
+      }
     },
     mounted() {
       const dropzone = this.$refs.dropzone
@@ -54,14 +80,12 @@
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropzone.addEventListener(eventName, preventDefaults, false)
       })
-
       ;['dragenter', 'dragover'].forEach(eventName => {
         dropzone.addEventListener(eventName, this.highlight, false)
       })
       ;['dragleave', 'drop'].forEach(eventName => {
         dropzone.addEventListener(eventName, this.unhighlight, false)
       })
-
       ;['dragdrop', 'drop'].forEach(eventName => {
         dropzone.addEventListener(eventName, this.handleDrop, false)
       })
