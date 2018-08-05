@@ -5,10 +5,12 @@ import router from '@/config/router'
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import progress from './progress'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: { progress },
   state: {
     customers: [],
     jobs: [],
@@ -36,12 +38,14 @@ export default new Vuex.Store({
     },
     setUser(state, payload) { state.user = payload },
     clearUser(state) { state.user = null },
-    addDeliveredFile(state, { job, file }) {
+    addDeliveredFile(state, { job, file, type }) {
       const jobDoc = db.collection('jobs').doc(job.id);
-      let deliveredFiles = Array.isArray(job.deliveredFiles) ? job.deliveredFiles : []
-      deliveredFiles.push(file)
-      console.log(deliveredFiles);
-      jobDoc.update({ deliveredFiles })
+      const key = `${type}s`
+      let files = job[key]
+      files = Array.isArray(files) ? files : []
+      // console.log(files);
+      files.push(file)
+      jobDoc.update({ [key]: files })
     },
     addJob(state, job) {
       return db.collection('jobs').add(job)
@@ -73,10 +77,10 @@ export default new Vuex.Store({
       return context.commit('addJob', job)
     },
 
-    addDeliveredFile(context, { job, file }) {
+    addDeliveredFile(context, { job, file, type }) {
       let { fullPath, md5Hash, name, size, updated } = file
       file = { fullPath, md5Hash, name, size, updated }
-      return context.commit('addDeliveredFile', {job, file})
+      return context.commit('addDeliveredFile', {job, file, type})
     },
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)
