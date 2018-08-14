@@ -73,6 +73,7 @@
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 full-width-print">
               <router-view/>
+              <progress-bar/>
         </main>
       </div>
     </div>
@@ -84,11 +85,12 @@ import router from '@/config/router'
 import { mapActions, mapGetters } from 'vuex'
 import Settings from '@/config/default-settings'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import ProgressBar from '@/components/partials/progress-bar'
 
 export default {
   name: 'app',
   router,
-  components: { FontAwesomeIcon },
+  components: { FontAwesomeIcon, ProgressBar },
   created() { this.$store.dispatch('init') },
   computed: {
     ...mapGetters(['user']),

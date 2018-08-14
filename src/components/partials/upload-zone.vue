@@ -18,7 +18,7 @@
     },
     props: [ 'type', 'subject' ],
     methods: {
-      ...mapActions(['addDeliveredFile']),
+      ...mapActions(['addDeliveredFile', 'addUploadTask']),
       highlight() {
         this.$refs.dropzone.classList.add('highlighted')
       },
@@ -30,25 +30,15 @@
         path.push(file.name)
         const fullPath = path.join('/')
         this.uploadTask = this.storageRef.child(fullPath).put(file)
+        this.addUploadTask(this.uploadTask)
         this.uploadTask.then((snapshot) => {
-          this.addDeliveredFile({job: this.subject, file: snapshot.metadata })
+          this.addDeliveredFile({
+            job: this.subject,
+            file: snapshot.metadata,
+            type: this.type
+          })
         })
-        this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function(snapshot) {
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          // eslint-disable-next-line no-console
-          console.log('Upload is ' + progress + '% done')
-        }, function(error) {
-          // eslint-disable-next-line no-console
-          console.log(error)
-          switch (error.code) {
-            case 'storage/unauthorized':
-            break;
-            case 'storage/canceled':
-            break;
-            case 'storage/unknown':
-            break;
-          }
-        }, function() {})
+        
       },
       handleDrop(e) {
         let dt = e.dataTransfer
