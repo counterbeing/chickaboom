@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    {{ file.name }}
+    <a :href='url'>{{ file.name }}</a>
     <font-awesome-icon icon="minus-circle" class='delete' @click='deleteFile'/>
   </div>
 </template>
@@ -26,8 +26,9 @@
       deleteFile() {
         this.fileRef.delete().then(() => {
           this.removeJobFileReference({job: this.job, file: this.file})
-        }).catch((e) => {
-          if(e.code === 'storage/object-not-found') console.log(YEP);
+        }).catch(() => {
+          // eslint-disable-next-line no-console
+          console.error('Failed attempting to remove the file');
         })
       }
     },
