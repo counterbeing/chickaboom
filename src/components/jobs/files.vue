@@ -1,10 +1,10 @@
 <template>
   <div class="row">
     <div class="col-md-6">
-      
+
       <h3>Source Files</h3>
       <ul class='files-list'>
-        <li v-for="file in sourceFiles" v-bind:key='file.md5Hash'>
+        <li v-for="file in sourceFiles" v-bind:key='file.md5Hash + file.updated'>
           {{ file.name }} x
         </li>
       </ul>
