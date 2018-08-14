@@ -1,6 +1,15 @@
 <template>
-  <div class="progress small">
-    <div class="progress-bar" role="progressbar" :style="style" :aria-valuenow="progress" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="">
+    <div class="progress small" v-if='uploadsActive'>
+      <div
+        class="progress-bar"
+        role="progressbar"
+        :style="style"
+        :aria-valuenow="progress"
+        aria-valuemin="0"
+        aria-valuemax="100">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -8,7 +17,7 @@
   import { mapGetters } from 'vuex'
   export default {
     computed: {
-      ...mapGetters(['uploadStatus']),
+      ...mapGetters(['uploadStatus', 'uploadsActive']),
       progress() {
         if(this.uploadStatus == undefined) return 0
         return this.uploadStatus.percent

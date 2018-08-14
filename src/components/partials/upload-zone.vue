@@ -18,7 +18,7 @@
     },
     props: [ 'type', 'subject' ],
     methods: {
-      ...mapActions(['addDeliveredFile', 'addUploadTask']),
+      ...mapActions(['addDeliveredFile', 'storeUploadSnapshot']),
       highlight() {
         this.$refs.dropzone.classList.add('highlighted')
       },
@@ -30,7 +30,7 @@
         path.push(file.name)
         const fullPath = path.join('/')
         this.uploadTask = this.storageRef.child(fullPath).put(file)
-        this.addUploadTask(this.uploadTask)
+        this.storeUploadSnapshot(this.uploadTask)
         this.uploadTask.then((snapshot) => {
           this.addDeliveredFile({
             job: this.subject,
@@ -38,7 +38,7 @@
             type: this.type
           })
         })
-        
+
       },
       handleDrop(e) {
         let dt = e.dataTransfer

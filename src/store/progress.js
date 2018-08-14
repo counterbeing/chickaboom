@@ -8,7 +8,10 @@ export default {
     uploadJobs: {},
   },
   mutations: {
-    addUploadTask(state, snapshot) {
+    clearUploadJobs(state){
+      Vue.set(state, 'uploadJobs', {})
+    },
+    storeUploadSnapshot(state, snapshot) {
       const subset = {
         bytesTransferred: snapshot.bytesTransferred,
         totalBytes: snapshot.totalBytes,
@@ -18,9 +21,9 @@ export default {
     }
   },
   actions: {
-    addUploadTask({ commit }, uploadTask) {
+    storeUploadSnapshot({ commit, state }, uploadTask) {
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, function(snapshot) {
-      commit('addUploadTask', snapshot)
+        commit('storeUploadSnapshot', snapshot)
         // const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         // eslint-disable-next-line no-console
         // console.log('Upload is ' + progress + '% done')
@@ -35,7 +38,15 @@ export default {
           case 'storage/unknown':
           break;
         }
-      }, function() {})
+      }, function() {
+        const jobs = state.uploadJobs
+        const keys = Object.keys(jobs)
+        commit('storeUploadSnapshot', uploadTask.snapshot)
+        if(keys.every( k => jobs[k].state == 'success')) {
+          commit('clearUploadJobs')
+        }
+
+      })
     },
   },
   getters: {
@@ -51,10 +62,10 @@ export default {
       }, defaults)
     },
     uploadsActive(state) {
-      return state.uploadJobs.length ? true : false
+      return Object.keys(state.uploadJobs).length > 0 ? true : false
     },
     uploadsCount(state) {
-      return state.uploadJobs.length
+      return Object.keys(state.uploadJobs).length
     },
   }
 }
