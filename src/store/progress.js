@@ -62,10 +62,17 @@ export default {
       }, defaults)
     },
     uploadsActive(state) {
+      // return true
       return Object.keys(state.uploadJobs).length > 0 ? true : false
     },
     uploadsCount(state) {
       return Object.keys(state.uploadJobs).length
+    },
+    uploadsRunningCount(state) {
+      return Object.keys(state.uploadJobs).reduce((acc, key) => {
+        if(state.uploadJobs[key].state === 'running') acc++
+        return acc
+      }, 0)
     },
   }
 }
