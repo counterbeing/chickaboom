@@ -5,7 +5,7 @@
       <h3>Source Files</h3>
       <ul class='files-list'>
         <li v-for="file in sourceFiles" v-bind:key='file.md5Hash + file.updated'>
-          {{ file.name }} x
+          <file :file='file' :job='job'/>
         </li>
       </ul>
       <upload-zone type="sourceFile" :subject="job"/>
@@ -16,7 +16,7 @@
       <h3>Delivered Files</h3>
       <ul class='files-list'>
         <li v-for="file in deliveredFiles" v-bind:key='file.md5Hash + file.updated'>
-          {{ file.name }} x
+          <file :file='file' :job='job'/>
         </li>
       </ul>
       <upload-zone type="deliveredFile" :subject="job"/>
@@ -27,10 +27,11 @@
 
 <script>
   import UploadZone from '@/components/partials/upload-zone'
+  import File from '@/components/partials/file'
   import { mapGetters } from 'vuex'
 
    export default {
-     components: { UploadZone },
+     components: { UploadZone, File },
      computed: {
        ...mapGetters(['jobById', 'customers']),
        job() { return this.jobById(this.$route.params.id) },

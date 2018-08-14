@@ -20,9 +20,11 @@ import faBriefcase from '@fortawesome/fontawesome-free-solid/faBriefcase'
 import faUsers from '@fortawesome/fontawesome-free-solid/faUsers'
 import faMoneyBill from '@fortawesome/fontawesome-free-solid/faMoneyBill'
 import faFileArchive from '@fortawesome/fontawesome-free-solid/faFileArchive'
+import faMinusCircle from '@fortawesome/fontawesome-free-solid/faMinusCircle'
 
 fontawesome.library.add(
-  faSpinner, faCircle, faCheck, faBriefcase, faUsers, faMoneyBill, faFileArchive
+  faSpinner, faCircle, faCheck, faBriefcase, faUsers, faMoneyBill,
+  faFileArchive, faMinusCircle
 )
 
 

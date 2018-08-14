@@ -43,8 +43,19 @@ export default new Vuex.Store({
       const key = `${type}s`
       let files = job[key]
       files = Array.isArray(files) ? files : []
-      // console.log(files);
       files.push(file)
+      jobDoc.update({ [key]: files })
+    },
+
+    removeJobFileReference(state, { job, file }) {
+      const jobDoc = db.collection('jobs').doc(job.id);
+      const baseType = file.fullPath.match(/\w+\/\w+\/(\w+)\//)[1]
+      const key = `${baseType}Files`
+      let files = job[key]
+      files = Array.isArray(files) ? files : []
+      files = files.filter((f) => {
+        f.fullPath !== file.fullPath
+      })
       jobDoc.update({ [key]: files })
     },
     addJob(state, job) {
@@ -81,6 +92,9 @@ export default new Vuex.Store({
       let { fullPath, md5Hash, name, size, updated } = file
       file = { fullPath, md5Hash, name, size, updated }
       return context.commit('addDeliveredFile', {job, file, type})
+    },
+    removeJobFileReference(context, { job, file}) {
+      return context.commit('removeJobFileReference', {job, file})
     },
     deleteCustomer: function (context, customerId) {
       context.commit('deleteCustomer', customerId)
