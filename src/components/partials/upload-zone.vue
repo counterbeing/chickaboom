@@ -1,5 +1,6 @@
 <template>
   <div class="upload-zone" ref='dropzone'>
+    <slot></slot>
   </div>
 </template>
 
@@ -85,13 +86,12 @@
 
 <style>
   .upload-zone {
-    border: 2px dashed #ccc;
-    font-family: sans-serif;
-    margin: 100px auto;
+    /* border: 2px dashed #ccc; */
+    /* margin: 100px auto; */
     padding: 20px;
   }
 
   .highlighted {
-    background-color: green;
+      background-color: green;
   }
 </style>
