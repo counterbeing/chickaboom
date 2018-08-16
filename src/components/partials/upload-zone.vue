@@ -92,6 +92,6 @@
   }
 
   .highlighted {
-      background-color: green;
+      background-color: rgba(153, 153, 153, 0.27) ;
   }
 </style>

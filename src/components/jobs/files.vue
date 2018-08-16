@@ -76,7 +76,6 @@
      },
      methods: {
        sort(column) {
-         console.log('change sort');
          if(this.sorting.column === column) this.flipOrder()
          Vue.set(this.sorting, 'column', column)
        },
