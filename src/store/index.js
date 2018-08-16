@@ -54,7 +54,7 @@ export default new Vuex.Store({
       let files = job[key]
       files = Array.isArray(files) ? files : []
       files = files.filter((f) => {
-        f.fullPath !== file.fullPath
+        return f.fullPath !== file.fullPath
       })
       jobDoc.update({ [key]: files })
     },
