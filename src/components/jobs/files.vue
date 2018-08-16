@@ -1,24 +1,36 @@
 <template>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
 
       <h3>Source Files</h3>
-      <ul class='files-list'>
-        <li v-for="file in sourceFiles" v-bind:key='file.md5Hash + file.updated'>
-          <file :file='file' :job='job'/>
-        </li>
-      </ul>
+      <table class='table table-bordered'>
+        <thead>
+          <td>Actions</td>
+          <td>Name</td>
+          <td>Size</td>
+          <td>Updated At</td>
+        </thead>
+        <template v-for="file in sourceFiles">
+          <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
+        </template>
+      </table>
       <upload-zone type="sourceFile" :subject="job"/>
     </div>
 
 
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h3>Delivered Files</h3>
-      <ul class='files-list'>
-        <li v-for="file in deliveredFiles" v-bind:key='file.md5Hash + file.updated'>
-          <file :file='file' :job='job'/>
-        </li>
-      </ul>
+      <table class='table table-bordered'>
+        <thead>
+          <td>Actions</td>
+          <td>Name</td>
+          <td>Size</td>
+          <td>Updated At</td>
+        </thead>
+        <template v-for="file in deliveredFiles">
+          <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
+        </template>
+      </table>
       <upload-zone type="deliveredFile" :subject="job"/>
     </div>
   </div>

@@ -48,7 +48,7 @@ export default new Vuex.Store({
     },
 
     removeJobFileReference(state, { job, file }) {
-      const jobDoc = db.collection('jobs').doc(job.id);
+      const jobDoc = db.collection('jobs').doc(job.id)
       const baseType = file.fullPath.match(/\w+\/\w+\/(\w+)\//)[1]
       const key = `${baseType}Files`
       let files = job[key]
