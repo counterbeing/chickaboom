@@ -10,6 +10,7 @@
             <td @click='sort("name")' >Name</td>
             <td @click='sort("size")'>Size</td>
             <td @click='sort("updated")'>Updated At</td>
+            <td @click='sort("kind")'>Kind</td>
           </thead>
           <template v-for="file in sourceFiles">
             <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
@@ -28,6 +29,7 @@
             <td>Name</td>
             <td>Size</td>
             <td>Updated At</td>
+            <td>Kind</td>
           </thead>
           <template v-for="file in deliveredFiles">
             <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>

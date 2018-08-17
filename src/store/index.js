@@ -9,6 +9,30 @@ import progress from './progress'
 
 Vue.use(Vuex)
 
+function mapFileToKind(files) {
+  if(!files) return []
+  return files.map((file) => {
+    const ext = file.name.split('.').pop()
+    file.kind = {
+      jpg: 'image',
+      jpeg: 'image',
+      png: 'image',
+      kmz: 'map',
+      mp4: 'video',
+      mov: 'video',
+      mp3: 'audio',
+      aiff: 'audio',
+      wav: 'audio',
+      zip: 'archive',
+      rar: 'archive',
+      doc: 'document',
+      docx: 'document',
+      txt: 'document',
+    }[ext] || '-'
+    return file
+  })
+}
+
 export default new Vuex.Store({
   modules: { progress },
   state: {
@@ -22,7 +46,11 @@ export default new Vuex.Store({
     requestedRoute: s => s.requestedRoute,
     user: s => s.user,
     customers: s => s.customers,
-    jobs: s => s.jobs,
+    jobs: s => s.jobs.map((job) => {
+      job.deliveredFiles = mapFileToKind(job.deliveredFiles)
+      job.sourceFiles = mapFileToKind(job.sourceFiles)
+      return job
+    }),
     jobById: (s, g) => {
       return id => g.jobs.find(j => j.id === id)
     }

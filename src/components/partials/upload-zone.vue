@@ -86,8 +86,6 @@
 
 <style>
   .upload-zone {
-    /* border: 2px dashed #ccc; */
-    /* margin: 100px auto; */
     padding: 20px;
   }
 

@@ -12,6 +12,7 @@
     <td>
       {{ file.updated | short_datetime }}
     </td>
+    <td>{{ file.kind }}</td>
   </tr>
 </template>
 
@@ -46,7 +47,7 @@
     computed: {
       filesize() {
         return filesize(this.file.size)
-      }
+      },
     },
     mounted() {
       this.storageRef = firebase.storage().ref();
