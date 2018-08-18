@@ -8,7 +8,7 @@
         <td @click='sort("updated")'>Updated At</td>
         <td @click='sort("kind")'>Kind</td>
       </thead>
-      <template v-for="file in sourceFiles">
+      <template v-for="file in files">
         <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
       </template>
     </table>
@@ -31,20 +31,16 @@ export default {
   props: ['job','type'],
   components: {UploadZone, File},
   computed: {
-    deliveredFiles() {
+    files() {
       if(!this.job) return []
-      return this.job.deliveredFiles || []
-    },
-    sourceFiles() {
-      if(!this.job) return []
-      return this.job.sourceFiles.slice().sort((a,b) => {
+      return this.job[this.type + 's'].slice().sort((a,b) => {
         let modifier = 1
         if(this.sorting.order === 'desc') modifier = -1
         if(a[this.sorting.column] < b[this.sorting.column]) return -1 * modifier
         if(a[this.sorting.column] > b[this.sorting.column]) return 1 * modifier
         return 0
       }) || []
-    }
+    },
   },
   methods: {
     sort(column) {
