@@ -1,41 +1,13 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-
       <h3>Source Files</h3>
-      <upload-zone type="sourceFile" :subject="job">
-        <table class='table table-bordered'>
-          <thead>
-            <td>Actions</td>
-            <td @click='sort("name")' >Name</td>
-            <td @click='sort("size")'>Size</td>
-            <td @click='sort("updated")'>Updated At</td>
-            <td @click='sort("kind")'>Kind</td>
-          </thead>
-          <template v-for="file in sourceFiles">
-            <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
-          </template>
-        </table>
-      </upload-zone>
+      <uploadable-file-list type='sourceFile' :job='job'></uploadable-file-list>
     </div>
-
 
     <div class="col-md-12">
       <h3>Delivered Files</h3>
-      <upload-zone type="deliveredFile" :subject="job">
-        <table class='table table-bordered'>
-          <thead>
-            <td>Actions</td>
-            <td>Name</td>
-            <td>Size</td>
-            <td>Updated At</td>
-            <td>Kind</td>
-          </thead>
-          <template v-for="file in deliveredFiles">
-            <file :file='file' :job='job' v-bind:key='file.md5Hash + file.updated'/>
-          </template>
-        </table>
-      </upload-zone>
+      <uploadable-file-list type='deliveredFile' :job='job'></uploadable-file-list>
     </div>
   </div>
 </template>
@@ -44,6 +16,7 @@
 <script>
   import UploadZone from '@/components/partials/upload-zone'
   import File from '@/components/partials/file'
+  import UploadableFileList from '@/components/partials/uploadable-file-list'
   import Vue from 'vue'
   import { mapGetters } from 'vuex'
 
@@ -57,7 +30,7 @@
         }
       }
      },
-     components: { UploadZone, File },
+     components: { UploadZone, File, UploadableFileList },
      computed: {
        ...mapGetters(['jobById', 'customers']),
        job() { return this.jobById(this.$route.params.id) },
