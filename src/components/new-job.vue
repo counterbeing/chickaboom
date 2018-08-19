@@ -219,8 +219,7 @@
         })
       },
       showAddress() {
-        const a = this.job.customer_id
-        return a !== null && a !== ''
+        return this.job.address.address_1
       }
     },
 
@@ -233,6 +232,12 @@
       selectedDate() {
         this.job.date = new Date(this.selectedDate)
       },
+      'job.address.address_1': function(add) {
+        if(add === '') {
+          this.$refs.address.value = ''
+          this.$refs.address.focus()
+        }
+      }
     },
   }
 </script>
