@@ -60,8 +60,8 @@
             </div>
 
 
-            <div class="col-md-12 mb-3">
-              <label for="date">Date</label>
+            <div>
+              <label for="date">Date of Service</label>
               <datetime
                 type="datetime"
                 v-model="selectedDate"
@@ -74,7 +74,6 @@
                 use12-hour
                 ></datetime>
             </div>
-
 
             <hr>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
