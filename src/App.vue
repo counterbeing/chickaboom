@@ -220,4 +220,18 @@ body {
      max-width: 100% !important;
    }
 }
+
+*::-webkit-input-placeholder {
+    color: #ddd !important;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: #ddd !important;
+}
+*::-moz-placeholder {
+    color: #ddd !important;
+}
+*:-ms-input-placeholder {
+    color: #ddd !important;
+}
 </style>
